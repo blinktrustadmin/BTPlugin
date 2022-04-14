@@ -1,0 +1,381 @@
+{
+	"name": "blinktrust",
+	"displayName": "BlinkTrustAI",
+	"description": "Worldclass scanner for the PII Data from BlinkTrustAI!",
+	"version": "1.0.3",
+	"engines": {
+		"vscode": "^1.64.0"
+	},
+	"galleryBanner": {
+		"color": "#283e55",
+		"theme": "dark"
+	},
+	"categories": [
+		"Programming Languages",
+		"Linters",
+		"Other"
+	],
+	"keywords": [
+		"PII",
+		"Data Security",
+		"Security",
+		"Angular",
+		"Code Analysis",
+		"Code Quality",
+		"GDPR",
+		"CCPA",
+		"JavaScript",
+		"TypeScript",
+		"HIPAA",
+		"CDPA",
+		"Code Analysis"
+	],
+	"publisher": "BlinkTrustAI",
+	"icon": "media/bhub.png",
+	"activationEvents": [
+		"onCommand:blinkhubScanner.dashboard",
+		"onCommand:blinkhubScanner.authenticate",
+		"onCommand:blinkhubScanner.refresh",
+		"onView:blinkhubScanner",
+		"onLanguage:markdown",
+		"*"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "blinkhubScanner",
+					"title": "BlinkTrustAI",
+					"icon": "media/blinkhub.svg"
+				}
+			]
+		},
+		"views": {
+			"blinkhubScanner": [
+				{
+					"id": "blinkhubScanner.welcome",
+					"name": "BlinkHub",
+					"when": "!loggedIn"
+				},
+				{
+					"id": "blinkhubScanner.views.data.code.security",
+					"name": "Data Security",
+					"when": "loggedIn"
+				},
+				{
+					"id": "blinkhubScanner.views.data.regulatory",
+					"name": "Data Regulator Complaint",
+					"when": "loggedIn"
+				},
+				{
+					"id": "blinkhubScanner.views.support",
+					"name": "Help & feedback"
+				}
+			]
+		},
+		"menus": {
+			"view/title": [
+				{
+					"command": "blinkhubScanner.refresh",
+					"when": "view == blinkhubScanner",
+					"group": "navigation",
+					"icon": "$(refresh)"
+				},
+				{
+					"command": "blinkhubScanner.dashboard",
+					"when": "view == blinkhubScanner",
+					"group": "navigation",
+					"icon": "$(report)"
+				}
+			]
+		},
+		"viewsWelcome": [
+			{
+				"view": "blinkhubScanner.welcome",
+				"contents": "Welcome to BlinkTrustAI Discovery for Visual Studio Code. 👋\nLet's start by connecting VS Code with BlinkTrustAI:\n[Connect VS Code with BlinkTrustAI](command:blinkhubScanner.authenticate 'Connect with BlinkTrustAI')\n👉 BlinkTrustAI's mission is to finds data Security and breach fast. Connect with BlinkTrustAI to start your first analysis!",
+				"when": "!blinkhubScanner:loggedIn"
+			},
+			{
+				"view": "blinkhubScanner.welcome",
+				"contents": "BlinkTrustAI Scanner is temporarily unavailable\nWe are automatically retrying to connect...",
+				"when": "blinkhubScanner:error == 'transient'"
+			},
+			{
+				"view": "blinkhubScanner.welcome",
+				"contents": "We are now redirecting you to our auth page, go ahead and log in. If a browser window doesn't open after a few seconds, please copy the url below and manually paste it in a browser.\n[Copy URL to clipboard](command:snyk.copyAuthLink 'Copy URL to clipboard')",
+				"when": "blinkhubScanner:loggedIn && blinkhubScanner:authenticating"
+			}
+		],
+		"commands": [
+			{
+				"command": "blinkhubScanner.refresh",
+				"category": "BlinkTrustAI",
+				"title": "Refresh",
+				"icon": "$(refresh)"
+			},
+			{
+				"command": "blinkhubScanner.authenticate",
+				"category": "BlinkTrustAI",
+				"title": "Authenticate"
+			},
+			{
+				"command": "blinkhubScanner.dashboard",
+				"title": "BlinkTrustAI Dashboard"
+			},
+			{
+				"command": "blinkhubScanner.settings",
+				"title": "Settings",
+				"category": "BlinkTrustAI",
+				"icon": "$(gear)"
+			}
+		],
+		"snippets": [
+			{
+				"path": "src/todo.code-snippets"
+			}
+		],
+		"configuration": {
+			"title": "BlinkTrustAI Data Scanner",
+			"properties": {
+				"blinkhubScanner.token": {
+					"type": "string",
+					"default": "",
+					"description": "API key",
+					"scope": "application"
+				},
+				"blinkhubScanner.yesWelcomeNotification": {
+					"//": "Name starts with y to put it at the end, as configs are sorted alphbetically",
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Show welcome notification after installation and restart",
+					"scope": "application"
+				},
+				"blinkhubScanner.autoScanDataSecurity": {
+					"type": "boolean",
+					"default": false,
+					"description": "Run BlinkTrustAI Data Security vulnerability analysis in automatic mode.",
+					"scope": "application"
+				},
+				"blinkhubScanner.textColor": {
+					"type": "string",
+					"default": "#f1f1f1",
+					"description": "Controls the text color."
+				},
+				"blinkhubScanner.stylingColor": {
+					"type": "string",
+					"default": "#e5aa25",
+					"description": "Controls the styling color."
+				},
+				"blinkhubScanner.stylingType": {
+					"type": "string",
+					"default": "background",
+					"enum": [
+						"background",
+						"border",
+						"textonly"
+					],
+					"description": "Controls the highlight styling."
+				},
+				"blinkhubScanner.stylingBorderRadius": {
+					"type": "string",
+					"default": "4px 16px",
+					"description": "Controls the border radius."
+				},
+				"blinkhubScanner.rulerLane": {
+					"type": "string",
+					"default": "Center",
+					"enum": [
+						"Left",
+						"Right",
+						"Center",
+						"Full"
+					],
+					"description": "The position in the overview ruler where the decoration should be rendered."
+				},
+				"blinkhubScanner.enableRulerColor": {
+					"type": "boolean",
+					"default": true,
+					"description": "Whether to enable decoration in the overview ruler."
+				},
+				"blinkhubScanner.isEnable": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable or disable the highlight"
+				},
+				"blinkhubScanner.isCaseSensitive": {
+					"type": "boolean",
+					"default": true,
+					"description": "Specify whether the keywords are case sensitive or not"
+				},
+				"blinkhubScanner.toggleURI": {
+					"type": "boolean",
+					"default": false,
+					"description": "If the file path within the output channel not clickable, set this to true to toggle the path patten between `<path>#<line>` and `<path>:<line>:<column>`"
+				},
+				"blinkhubScanner.keywords": {
+					"type": "array",
+					"description": "Customize keywords and colors. Any css color identifier is valid.",
+					"items": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "object",
+								"properties": {
+									"text": {
+										"type": "string",
+										"description": "Custom text to be highlighted"
+									},
+									"color": {
+										"type": "string",
+										"description": "The text color. Besides, you can play with all the string and boolean styling properties provied by VS Code API. See all available properties on VSCode doc DecorationRenderOptions section: https://code.visualstudio.com/docs/extensionAPI/vscode-api"
+									},
+									"backgroundColor": {
+										"type": "string",
+										"description": "The text background color. See all available properties on VSCode doc DecorationRenderOptions section: https://code.visualstudio.com/docs/extensionAPI/vscode-api"
+									},
+									"overviewRulerColor": {
+										"type": "string",
+										"description": "The color of the ruler mark on the scroll bar. Use rgba() and define transparent colors to play well with other decorations. See all available properties on VSCode doc DecorationRenderOptions section: https://code.visualstudio.com/docs/extensionAPI/vscode-api"
+									}
+								}
+							}
+						]
+					}
+				},
+				"blinkhubScanner.keywordsPattern": {
+					"type": "string",
+					"default": "",
+					"description": "Specify keywords via RegExp instead of `todohighlight.keywords` one by one. NOTE that if this presents, `todohighlight.keywords` will be ignored. And REMEMBER to escapse the back slash if there's any in your regexp (using \\\\ instead of single back slash)"
+				},
+				"blinkhubScanner.defaultStyle": {
+					"type": "object",
+					"description": "Default style for all customized keywords",
+					"properties": {
+						"color": {
+							"type": "string",
+							"description": "The text color. See all available properties on VSCode doc DecorationRenderOptions section: https://code.visualstudio.com/docs/extensionAPI/vscode-api"
+						},
+						"backgroundColor": {
+							"type": "string",
+							"description": "The text background color. See all available properties on VSCode doc DecorationRenderOptions section: https://code.visualstudio.com/docs/extensionAPI/vscode-api"
+						},
+						"overviewRulerColor": {
+							"type": "string",
+							"description": "The color of the ruler mark on the scroll bar. See all available properties on VSCode doc DecorationRenderOptions section: https://code.visualstudio.com/docs/extensionAPI/vscode-api"
+						}
+					}
+				},
+				"blinkhubScanner.include": {
+					"type": "array",
+					"default": [
+						"**/*.js",
+						"**/*.jsx",
+						"**/*.ts",
+						"**/*.tsx",
+						"**/*.html",
+						"**/*.php",
+						"**/*.js",
+						"**/*.ts",
+						"**/*.vue",
+						"**/*.py",
+						"**/*.md"
+					],
+					"description": "Glob patterns that defines the files to search for. Only include files you need, DO NOT USE `{**/*.*}` for both permormance and avoiding binary files reason.",
+					"items": {
+						"anyOf": [
+							{
+								"type": "string",
+								"description": "A glob pattern that defines the files to search for. Only include files you need, DO NOT USE `**/*.*` for both performance and avoiding binary files reason"
+							}
+						]
+					}
+				},
+				"blinkhubScanner.exclude": {
+					"type": "array",
+					"default": [
+						"**/node_modules/**",
+						"**/bower_components/**",
+						"**/dist/**",
+						"**/build/**",
+						"**/.vscode/**",
+						"**/.github/**",
+						"**/_output/**",
+						"**/*.min.*",
+						"**/*.map",
+						"**/.next/**"
+					],
+					"description": "Glob pattern that defines files and folders to exclude while listing annotations.",
+					"items": {
+						"anyOf": [
+							{
+								"type": "string",
+								"description": "A glob pattern that defines files and folders to exclude while listing annotations"
+							}
+						]
+					}
+				},
+				"blinkhubScanner.maxFilesForSearch": {
+					"type": "number",
+					"default": 5120,
+					"description": "Max files for searching"
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run package",
+		"compile": "webpack --config ./build/node-extension.webpack.config.js",
+		"compile:node": "esbuild src/extension.ts --bundle --platform=node --format=cjs --external:vscode --outfile=dist/node/extension.js --sourcemap --define:WEB_MODE=false",
+		"watch": "concurrently \"rollup -c -w\" \"webpack --watch --config ./build/node-extension.webpack.config.js\"",
+		"package": "webpack --mode production --devtool hidden-source-map --config ./build/node-extension.webpack.config.js",
+		"test-compile": "tsc -p ./",
+		"test-watch": "tsc -watch -p ./",
+		"pretest": "npm run test-compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@rollup/plugin-commonjs": "^17.1.0",
+		"@rollup/plugin-node-resolve": "^11.2.1",
+		"@rollup/plugin-typescript": "^8.3.0",
+		"@tsconfig/svelte": "^1.0.10",
+		"@types/glob": "^7.2.0",
+		"@types/mocha": "^9.0.0",
+		"@types/node": "14.x",
+		"@types/polka": "^0.5.4",
+		"@types/sanitize-html": "^2.6.2",
+		"@types/vscode": "^1.64.0",
+		"@typescript-eslint/eslint-plugin": "^5.11.0",
+		"@typescript-eslint/parser": "^5.11.0",
+		"@vscode/test-electron": "^2.0.3",
+		"concurrently": "^5.3.0",
+		"eslint": "^8.6.0",
+		"glob": "^7.2.0",
+		"mocha": "^9.1.3",
+		"rollup": "^2.67.1",
+		"rollup-plugin-svelte": "^6.1.1",
+		"rollup-plugin-terser": "^7.0.2",
+		"svelte": "^3.31.0",
+		"svelte-accessible-accordion": "^2.1.0",
+		"svelte-check": "^1.1.23",
+		"svelte-preprocess": "^4.10.2",
+		"ts-loader": "^9.2.6",
+		"typescript": "^4.5.4",
+		"vscode-test": "^1.4.1",
+		"webpack": "^5.66.0",
+		"webpack-cli": "^4.9.1"
+	},
+	"dependencies": {
+		"axios": "^0.26.1",
+		"express": "^4.17.2",
+		"parse-address-string": "0.0.3",
+		"polka": "^0.5.2",
+		"sanitize-html": "^2.7.0",
+		"vsce": "^2.6.7",
+		"xregexp": "^3.1.1",
+		"ziprip": "0.0.3"
+	}
+}
