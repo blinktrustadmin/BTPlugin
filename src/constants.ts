@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-export const apiBaseUrl = "https://app.blinktrustai.com";
+export const apiBaseUrl = "http://apis-dev.blinktrust.com";
 export const EXTENSION_ID = 'blinkhubScanner';
 
 export const VIEWS = {

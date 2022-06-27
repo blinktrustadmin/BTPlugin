@@ -28,9 +28,9 @@ export const authenticate = (fn: () => void) => {
     fn();
     
     //res.end(html);
-    console.log(__dirname + "bh/index.html");
-    res.sendFile(path.join(__dirname+'/bh/index.html'));
-    //res.end(`<h1>auth was successful, you can close this now</h1>`);
+    // console.log(__dirname + "bh/index.html");
+    // res.sendFile(path.join(__dirname+'/bh/index.html'));
+    res.end(`<h1>auth was successful, you can close this now</h1>`);
     try{
       server.close();
     }
