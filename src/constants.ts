@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 export const apiBaseUrl = "http://apis-dev.blinktrust.com";
+
 export const EXTENSION_ID = 'blinkhubScanner';
 
 export const VIEWS = {
@@ -27,7 +28,8 @@ export const TODO = 'TODO:';
 export const REGEX = new RegExp(TODO, 'g');
 
 export const WELCOMEMSG = 'Welcome to BlinkTrustAI Scanner for Visual Studio Code!';
-export const DASHBOARDURL = 'https://www.blinktrustai.com/dashboard.html';
+export const DASHBOARDURL = 'http://blinktrustai-web-lb-880995202.ap-south-1.elb.amazonaws.com/#discovery-section';
+// export const DASHBOARDURL = 'https://www.blinktrustai.com/dashboard.html';
 
 export const BLINKHUB_CONTEXT = {
   LOGGEDIN: 'loggedIn',
@@ -41,7 +43,7 @@ export const BLINKHUB_ERROR_CODES = {
 
 export const VALIDATOR_REGEXPS : { [key: string]: any } = Object.seal({
   // Adapted from source: https://github.com/solvvy/redact-pii/blob/da5f16f/src/built-ins/simple-regexp-patterns.ts
-  //DATABASE: /(?<name>[^=;,]+)=(?<val>[^;,]+(,\d+)?)/,
+  // DATABASE: /(?<name>[^=;,]+)=(?<val>[^;,]+(,\d+)?)/,
   EMAIL: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/, //\b[\w][\w+.-]+(@|%40)[a-z\d-]+(\.[a-z\d-]+)*\.[a-z]+\b
   PROPERTY_UNIT_NUMBER:  /([0-9]+)?(\s+([0-9]?[a-zA-Z]+\s+)+)[a-zA-Z]+(,)?(((\s+)?)+)[ ]((?:[Aa](?:la(?:(?:bam|sk)a)|merican [Ss]amoa|r(?:izona|kansas))|(?:^(?![Bb]aja )[Cc]alifornia)|[Cc]o(?:lorado|nnecticut)|[Dd](?:elaware|istrict of [Cc]olumbia)|[Ff]lorida|[Gg](?:eorgia|uam)|[Hh]awaii|[Ii](?:daho|llinois|ndiana|owa)|[Kk](?:ansas|entucky)|[Ll]ouisiana|[Mm](?:a(?:ine|ryland|ssachusetts)|i(?:chigan|nnesota|ss(?:(?:issipp|our)i))|ontana)|[Nn](?:e(?:braska|vada|w (?:[Hh]ampshire|[Jj]ersey|[Mm]exico|[Yy]ork))|orth (?:(?:[Cc]arolin|[Dd]akot)a))|[Oo](?:hio|klahoma|regon)|[Pp](?:ennsylvania|uerto [Rr]ico)|[Rr]hode [Ii]sland|[Ss]outh (?:(?:[Cc]arolin|[Dd]akot)a)|[Tt](?:ennessee|exas)|[Uu]tah|[Vv](?:ermont|irgin(?:ia| [Ii]sland(s?)))|[Ww](?:ashington|est [Vv]irginia|isconsin|yoming)|A[KLRSZ]|C[AOT]|D[CE]|FL|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEINOST]|N[CDEHJMVY]|O[HKR]|P[AR]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY]))?(\s+)(\d{5}(?:[- ]?\d{4})?)/, ///(apt|bldg|dept|fl|hngr|lot |pier|rm|ste|slip|trlr|unit |#)\s*\.?#?\s*[0-9]+[a-z0-9-]*\b/i,
   PROPERTY_ADDRESS: /\d+(\s+[nsew]\.?)?(\s+\w+){1,}\s+(?:st(?:\.|reet)?|dr(?:\.|ive)?|pl(?:\.|ace)?|ave(?:\.|nue)?|rd|road|lane|boulevard|blvd|loop|way|circle|cir|court|ct|plaza|square|run|parkway|point|pike|square|driveway|trace|park|terrace)(\s|[^a-z]|$)/,
@@ -61,16 +63,15 @@ export const VALIDATOR_REGEXPS : { [key: string]: any } = Object.seal({
   //POSTAL_CODE_CA: /^[a-zA-Z]\d{1}[a-zA-Z](\-| |)\d{1}[a-zA-Z]\d{1}$/,
   POSTAL_CODE_BR: /^[0-9]{2}\.[0-9]{3}-[0-9]{3}$/,
   POSTAL_CODE_FR: /(^[0-8]\d\d{3}$)|(^9[0-5]\d{3}$)|(^97[1-6]\d{2}$)|(^98[46-8]\d{2}$)/,
+  MAC_ADDRESS: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$/,
+  LICENSE_PLATE_NUMBERS: /\b[0-9A-Z]{3}([^ 0-9A-Z]|\s)?[0-9]{4}\b/,
+  DOB: /\b(birth|birthdate|birthday|dob|born)\W+(?:\w+\W+){0,5}?(?<REDACT>(\d{4}|\d{1,2})[\/\-]\d{1,2}[\/\-](\d{4}|\d{1,2}))\b/,
   
-  /*ZIPCODE:/\b\d{5}\b(-\d{4})?\b/g,
-  USDL:/^[0-3][0-9]{7}$/,
-  UKDL:/^[A-Z9]{5}\d{6}[A-Z9]{2}\d[A-Z]{2}$/,
+  ZIPCODE:/\b\d{5}\b(-\d{4})?\b/g,
+  USDL:/\b[A-Za-z]{1}[0-9]{7}\b/, 
+  UKDL:/\b[\w9]{5}\d{6}[\w9]{2}\d{5}\b/, 
   INDL:/^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$/,
   SLACK_TOKEN: /^(xox[pborsa]-[0-9]{12}-[0-9]{12}-[0-9]{12}-[a-z0-9]{32})$/,
-  RSA_PRIVATE_KEY: /^-----BEGIN RSA PRIVATE KEY-----/g,
-  SSH_DSA_PRIVATE_KEY: /-----BEGIN DSA PRIVATE KEY-----/,
-  SSH_EC_PRIVATE_KEY: /-----BEGIN EC PRIVATE KEY-----/,
-  PGP_PRIVATE_KEY_BLOCK: /-----BEGIN PGP PRIVATE KEY BLOCK-----/,
   AWS_API_KEY: /((?:A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16})/,
   AMAZON_MWS_AUTH_TOKEN: /amzn\\.mws\\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/,
   AWS_APPSYNC_GRAPHQL_KEY: /da2-[a-z0-9]{26}/,
@@ -103,8 +104,9 @@ export const VALIDATOR_REGEXPS : { [key: string]: any } = Object.seal({
   TELEGRAM_BOT_API_KEY: /[0-9]+:AA[0-9A-Za-z\\-_]{33}/,
   TWILIO_API_KEY: /SK[0-9a-fA-F]{32}/,
   TWITTER_ACCESS_TOKEN: /[tT][wW][iI][tT][tT][eE][rR].*[1-9][0-9]+-[0-9a-zA-Z]{40}/,
-  TWITTER_OAUTH: /[tT][wW][iI][tT][tT][eE][rR].*['|\"][0-9a-zA-Z]{35,44}['|\"]/,*/
-
+  TWITTER_OAUTH: /[tT][wW][iI][tT][tT][eE][rR].*['|\"][0-9a-zA-Z]{35,44}['|\"]/,
+  // UK_PASSPORT: /\d{9}\D/,
+  VIN: /^(?=.*[0-9])(?=.*[A-z])[0-9A-z-]{17}$/,
 });
 
 export const VALIDATOR_REGEXPS_KEYS  = Object.keys(VALIDATOR_REGEXPS);
@@ -129,7 +131,9 @@ export const VALIDATOR_ERROR_MESSAGES: { [key: string]: any } = Object.seal({
   PHONE_US: 'Contains a phone number',
   PHONE_INDIA: 'Contains a phone number',
   PHONE_AU: 'Contains a phone number',
-  /*ZIPCODE: 'Contains an zip code number',
+  MAC_ADDRESS: 'Contains a MAC address',
+  LICENSE_PLATE_NUMBERS: 'Contain a license plate number',
+  ZIPCODE: 'Contains an zip code number',
   USDL: 'Contains a driving license (US)',
   SLACK_TOKEN: "Contains a Slack Token",
   RSA_PRIVATE_KEY: "Contains a RSA private key",
@@ -168,7 +172,9 @@ export const VALIDATOR_ERROR_MESSAGES: { [key: string]: any } = Object.seal({
   TELEGRAM_BOT_API_KEY: "Contains a Telegram Bot API Key",
   TWILIO_API_KEY: "Contains a Twilio API Key",
   TWITTER_ACCESS_TOKEN: "Contains a Twitter Access Token",
-  TWITTER_OAUTH: "Contains a Twitter OAuth",*/
+  TWITTER_OAUTH: "Contains a Twitter OAuth",
+  VIN: "Contains Vehicle identification Number",
+  DOB: "Contains personal information DOB",
 });
 
 export const VALIDATOR_SEVERTY_ICON: { [key: string]: any } = Object.seal({
@@ -190,12 +196,14 @@ export const VALIDATOR_SEVERTY_ICON: { [key: string]: any } = Object.seal({
   IPADDRESS: 'low',
   CREDITCARD: 'high',
   TOKEN: 'high',
+  MAC_ADDRESS: 'high',
+  LICENSE_PLATE_NUMBERS: 'high',
 
   PHONE_US: 'medium',
   PHONE_INDIA: 'high',
   PHONE_AU: 'high',
 
-  /*ZIPCODE: 'symbol-text',
+  ZIPCODE: 'symbol-text',
   USDL: 'default-view-icon',
   SLACK_TOKEN: "key",
   RSA_PRIVATE_KEY: "key",
@@ -234,7 +242,9 @@ export const VALIDATOR_SEVERTY_ICON: { [key: string]: any } = Object.seal({
   TELEGRAM_BOT_API_KEY: "key",
   TWILIO_API_KEY: "key",
   TWITTER_ACCESS_TOKEN: "key",
-  TWITTER_OAUTH: "key",*/
+  TWITTER_OAUTH: "key",
+  VIN: "medium",
+  DOB: "medium",
 });
 
 export const VALIDATOR_ICON: { [key: string]: any } = Object.seal({
@@ -252,7 +262,7 @@ export const VALIDATOR_ICON: { [key: string]: any } = Object.seal({
   TOKEN: 'key',
   PHONE: 'callhierarchy-incoming',
 
-  /*ZIPCODE: 'symbol-text',
+  ZIPCODE: 'symbol-text',
   USDL: 'default-view-icon',
   SLACK_TOKEN: "key",
   RSA_PRIVATE_KEY: "key",
@@ -291,7 +301,7 @@ export const VALIDATOR_ICON: { [key: string]: any } = Object.seal({
   TELEGRAM_BOT_API_KEY: "key",
   TWILIO_API_KEY: "key",
   TWITTER_ACCESS_TOKEN: "key",
-  TWITTER_OAUTH: "key",*/
+  TWITTER_OAUTH: "key",
 });
 
 export const VALIDATOR_ERROR_LEVEL: { [key: string]: any } = Object.seal({
@@ -315,8 +325,10 @@ export const VALIDATOR_ERROR_LEVEL: { [key: string]: any } = Object.seal({
   PHONE_US: 'Warning',
   PHONE_INDIA: 'Error',
   PHONE_AU: 'Error',
+  MAC_ADDRESS: 'Error',
+  LICENSE_PLATE_NUMBERS: 'Error',
 
-  /*ZIPCODE: 'symbol-text',
+  ZIPCODE: 'symbol-text',
   USDL: 'default-view-icon',
   SLACK_TOKEN: "key",
   RSA_PRIVATE_KEY: "key",
@@ -355,7 +367,9 @@ export const VALIDATOR_ERROR_LEVEL: { [key: string]: any } = Object.seal({
   TELEGRAM_BOT_API_KEY: "key",
   TWILIO_API_KEY: "key",
   TWITTER_ACCESS_TOKEN: "key",
-  TWITTER_OAUTH: "key",*/
+  TWITTER_OAUTH: "key",
+  // VIN: "Warning",
+  // DOB: "Warning",
 });
 
 export const VALIDATOR_ERROR_REASONS : { [key: string]: any } = Object.seal({
@@ -378,8 +392,10 @@ export const VALIDATOR_ERROR_REASONS : { [key: string]: any } = Object.seal({
   PHONE_US: 'Phone Numbers disallowed!',
   PHONE_INDIA: 'Phone Numbers disallowed!',
   PHONE_AU: 'Phone Numbers disallowed!',
+  MAC_ADDRESS: 'MAC Address disallowed!',
+  LICENSE_PLATE_NUMBERS: 'License Plate Number disallowed!',
 
-  /*ZIPCODE: 'Zip Code Numbers disallowed!',
+  ZIPCODE: 'Zip Code Numbers disallowed!',
   USDL: 'Driving Licenses disallowed!',
   SLACK_TOKEN: "Contains a Slack Token",
   RSA_PRIVATE_KEY: "Contains a RSA private key",
@@ -418,7 +434,9 @@ export const VALIDATOR_ERROR_REASONS : { [key: string]: any } = Object.seal({
   TELEGRAM_BOT_API_KEY: "Contains a Telegram Bot API Key",
   TWILIO_API_KEY: "Contains a Twilio API Key",
   TWITTER_ACCESS_TOKEN: "Contains a Twitter Access Token",
-  TWITTER_OAUTH: "Contains a Twitter OAuth",*/
+  TWITTER_OAUTH: "Contains a Twitter OAuth",
+  VIN: "Contains a Virtual identification number",
+  DOB: "Contains personal information DOB"
 });
 
 export const INCLUDE = [
