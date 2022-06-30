@@ -5,6 +5,7 @@ export const EXTENSION_ID = 'blinkhubScanner';
 export const VIEWS = {
   TODO_LIST: 'blinkhubScanner.views.data.code.security', //'blinkhubScanner'
   TODO_REGULATORY: 'blinkhubScanner.views.data.regulatory',
+  TODO_PLATFORM: 'blinkhubScanner.views.platform',
   TODO_HELP: 'blinkhubScanner.views.support',
 };
 
