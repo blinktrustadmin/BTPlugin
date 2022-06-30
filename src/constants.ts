@@ -11,6 +11,7 @@ export const VIEWS = {
 };
 
 export const COMMANDS = {
+  OPEN_LINK: EXTENSION_ID + '.openlink',
   REFRESH: EXTENSION_ID + '.refreshList',
   OPEN_FILE: EXTENSION_ID + '.openFile'
 };

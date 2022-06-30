@@ -224,6 +224,13 @@ export function activate(context: vscode.ExtensionContext) {
     })
   );
 
+  context.subscriptions.push(
+    vscode.commands.registerCommand("blinkhubScanner.openlink", async (data) => {
+      console.log(data);
+      vscode.env.openExternal(vscode.Uri.parse(data));
+    })
+  );
+
   function init(settings: any) {
     var customDefaultStyle = settings.get("defaultStyle");
     keywordsPattern = settings.get("keywordsPattern");

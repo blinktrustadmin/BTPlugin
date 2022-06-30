@@ -37,6 +37,7 @@
     "onCommand:blinkhubScanner.dashboard",
     "onCommand:blinkhubScanner.authenticate",
     "onCommand:blinkhubScanner.refresh",
+    "onCommand:blinkhubScanner.openlink",
     "onView:blinkhubScanner",
     "onLanguage:markdown",
     "*"
@@ -134,6 +135,11 @@
         "title": "Settings",
         "category": "BlinkTrustAI",
         "icon": "$(gear)"
+      },
+      {
+        "command": "blinkhubScanner.openlink",
+        "title": "Openlink",
+        "category": "BlinkTrustAI"
       }
     ],
     "snippets": [
@@ -151,7 +157,7 @@
           "scope": "application"
         },
         "blinkhubScanner.yesWelcomeNotification": {
-          "//": "Name starts with y to put it at the end, as configs are sorted alphbetically",
+          "//": "Name starts with y to put it at the end, as configs are sorted alphabetically",
           "type": "boolean",
           "default": true,
           "markdownDescription": "Show welcome notification after installation and restart",

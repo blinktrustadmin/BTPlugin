@@ -35,14 +35,16 @@ export class TodoTreeListPlatform implements TreeDataProvider<Todo> {
 
    
 
+    // vscode.env.openExternal(vscode.Uri.parse('https://www.google.com'));
+
     let faq1 = "GDPR";
-    childToDo.push(new Todo(faq1, undefined, undefined, 0));
+    childToDo.push(new Todo(faq1, undefined, vscode.Uri.parse('https://www.google.com'), 0));
     
     let faq2 = "CCPA";
-    childToDo.push(new Todo(faq2, undefined, undefined, 0));
+    childToDo.push(new Todo(faq2, undefined, vscode.Uri.parse('https://www.google.com'), 0));
 
     let faq3 = "India";
-    childToDo.push(new Todo(faq3, undefined, undefined, 0));
+    childToDo.push(new Todo(faq3, undefined, vscode.Uri.parse('https://www.google.com'), 0));
 
     let product = "Access regulatory & reports";
     arr1.push(new Todo(product , childToDo, undefined));
@@ -82,6 +84,30 @@ class Todo extends TreeItem {
     super({ label:label, highlights:[[0,5],[9,12]] }, children ? TreeItemCollapsibleState.Collapsed : TreeItemCollapsibleState.None);
     
     let iconSvg = undefined;
+    let routingPath = undefined;
+
+    if (label === 'GDPR') {
+      console.log('I am here  ++++++++++++++++@@@@@@@@##################');
+      console.log(label, typeof label);
+      console.log(label === 'GDPR');
+      routingPath = vscode.Uri.from({
+        scheme: 'https',
+        authority: 'www.blinktrust.com',
+        path: 'gdpr'
+      });
+    } else if (label === 'CCPA') {
+      routingPath = vscode.Uri.from({
+        scheme: 'https',
+        authority: 'www.blinktrust.com',
+        path: 'ccpa'
+      })
+    } else {
+      routingPath = vscode.Uri.from({
+        scheme: 'https',
+        authority: 'www.blinktrust.com',
+        path: 'india'
+      })
+    }
 
     if (icon === "critical"){
       iconSvg = vscode.Uri.from({
@@ -117,9 +143,9 @@ class Todo extends TreeItem {
     this.resourceUri = children ? path : undefined;
     this.description = description? description : !!children;
     this.command = !children ? {
-      command: COMMANDS.OPEN_FILE,
-      title: 'Open file',
-      arguments: [path, col]
+      command: COMMANDS.OPEN_LINK,
+      title: 'Open Link',
+      arguments: [routingPath]
     } : undefined;
   }
 }
