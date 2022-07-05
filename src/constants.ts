@@ -480,3 +480,5 @@ exports.TOKEN_SETTING = `${exports.CONFIGURATION_IDENTIFIER}.token`;
 exports.YES_WELCOME_NOTIFICATION_SETTING = `${exports.CONFIGURATION_IDENTIFIER}.yesWelcomeNotification`;
 exports.ADVANCED_AUTOSCAN_DATA_SECURITY_SETTING = `${exports.CONFIGURATION_IDENTIFIER}.autoScanDataSecurity`;
 
+export const JsApiComment = "/*  Hello I am comment  */";
+

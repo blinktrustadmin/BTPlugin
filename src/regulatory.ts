@@ -21,7 +21,8 @@ export class TodoTreeListRegulatory implements TreeDataProvider<Todo> {
   }
 
   private async getTodoList(): Promise<Todo[]> {
-    const arr1: Todo[] = [];
+    const parentTreeItem: Todo[] = [];
+    const childTreeItem: Todo[] = [];
     let totalError = 0;
     const files = await workspace.findFiles(
       pattern(Decoration.include(), INCLUDE),
@@ -29,86 +30,98 @@ export class TodoTreeListRegulatory implements TreeDataProvider<Todo> {
       MAX_RESULTS
     );
 
-    if (files.length) {
-      for (let i = 0; i < files.length; i++) {
-        const arr2: Todo[] = [];
-        const file = files[i];
-        const doc = await workspace.openTextDocument(file);
-        const docUri = doc.uri;
-        const fileName = doc.fileName
-          .replace(/\\/g, '/')
-          .split('/').pop()
-          ?? 'unknown';
-        let k = 1;
+    // if (files.length) {
+    //   for (let i = 0; i < files.length; i++) {
+    //     const arr2: Todo[] = [];
+    //     const file = files[i];
+    //     const doc = await workspace.openTextDocument(file);
+    //     const docUri = doc.uri;
+    //     const fileName = doc.fileName
+    //       .replace(/\\/g, '/')
+    //       .split('/').pop()
+    //       ?? 'unknown';
+    //     let k = 1;
 
-        for (let j = 0; j < doc.lineCount; j++) {
-          var text = doc.lineAt(j).text;
-          if (doc.fileName.endsWith("html")){
-            text = text.replace(/<[^>]+>/g, '').replace(/=/g, ' ').replace(/"/g, '').replace(/;/g, '');
-          }
-          text = text.trim();
-          if (text === "") { continue;}
+    //     for (let j = 0; j < doc.lineCount; j++) {
+    //       var text = doc.lineAt(j).text;
+    //       if (doc.fileName.endsWith("html")){
+    //         text = text.replace(/<[^>]+>/g, '').replace(/=/g, ' ').replace(/"/g, '').replace(/;/g, '');
+    //       }
+    //       text = text.trim();
+    //       if (text === "") { continue;}
 
-          const strToTest = text.replace('.', '');
-          let key: string;
-          let errors = [];
-          for (let i = 0; i < VALIDATOR_REGEXPS_KEYS.length; i++) {
-            key = VALIDATOR_REGEXPS_KEYS[i];
-            var REGEX_NEW = VALIDATOR_REGEXPS[key];
-            var found = false;
+    //       const strToTest = text.replace('.', '');
+    //       let key: string;
+    //       let errors = [];
+    //       for (let i = 0; i < VALIDATOR_REGEXPS_KEYS.length; i++) {
+    //         key = VALIDATOR_REGEXPS_KEYS[i];
+    //         var REGEX_NEW = VALIDATOR_REGEXPS[key];
+    //         var found = false;
 
-            if (key === 'POSTAL_CODE_UK' || key === 'POSTAL_CODE_CA' || key === 'PROPERTY_ADDRESS_AU' ){
-              if (REGEX_NEW.test(strToTest)) {
-                //const todoText = text.slice(text.indexOf(element) + element.length + 1, text.length);
-                var toDoMesg = VALIDATOR_ERROR_MESSAGES[key];
-                var toDoError = VALIDATOR_ERROR_REASONS[key];
-                var childToDo: Todo[] = [];
-                var m = REGEX_NEW.exec(text);
-                var s = "";
-                if (m !== null){
-                  s = (m !== undefined && m.length ? m[0] : undefined) ;
-                }
-                else{
-                  s = text;
-                }
+    //         if (key === 'POSTAL_CODE_UK' || key === 'POSTAL_CODE_CA' || key === 'PROPERTY_ADDRESS_AU' ){
+    //           if (REGEX_NEW.test(strToTest)) {
+    //             //const todoText = text.slice(text.indexOf(element) + element.length + 1, text.length);
+    //             var toDoMesg = VALIDATOR_ERROR_MESSAGES[key];
+    //             var toDoError = VALIDATOR_ERROR_REASONS[key];
+    //             var childToDo: Todo[] = [];
+    //             var m = REGEX_NEW.exec(text);
+    //             var s = "";
+    //             if (m !== null){
+    //               s = (m !== undefined && m.length ? m[0] : undefined) ;
+    //             }
+    //             else{
+    //               s = text;
+    //             }
                 
-                childToDo.push(new Todo(`${toDoError}`, undefined, docUri, j, 'warning'));
-                arr2.push(new Todo(`${s}`, childToDo, docUri, j, VALIDATOR_SEVERTY_ICON[key].toLocaleLowerCase(), toDoMesg));
-                found = true;
-              }
-            }
-            if (found) {break;}     
-          }
+    //             childToDo.push(new Todo(`${toDoError}`, undefined, docUri, j, 'warning'));
+    //             arr2.push(new Todo(`${s}`, childToDo, docUri, j, VALIDATOR_SEVERTY_ICON[key].toLocaleLowerCase(), toDoMesg));
+    //             found = true;
+    //           }
+    //         }
+    //         if (found) {break;}     
+    //       }
           
-          /*if (REGEX.test(text)) {
-            const todoText = text.slice(text.indexOf(TODO) + TODO.length + 1, text.length);
-            if (todoText) {
-              arr2.push(new Todo(`${k}. ${todoText}`, undefined, docUri, j));
-              k++;
-            }
-          }*/
+    //       /*if (REGEX.test(text)) {
+    //         const todoText = text.slice(text.indexOf(TODO) + TODO.length + 1, text.length);
+    //         if (todoText) {
+    //           arr2.push(new Todo(`${k}. ${todoText}`, undefined, docUri, j));
+    //           k++;
+    //         }
+    //       }*/
 
-        }
+    //     }
 
-        if (arr2.length) 
-        {
-           arr1.push(new Todo(fileName, arr2, docUri));
-           totalError += (arr2.length - 1);
-        }
-      }
-    }
+    //     if (arr2.length) 
+    //     {
+    //        arr1.push(new Todo(fileName, arr2, docUri));
+    //        totalError += (arr2.length - 1);
+    //     }
+    //   }
+    // }
 
-    if (totalError > 0) 
-    {
-      let fileNameMsg = (totalError === 1 ? "BlinkTrust AI found only 1 regulatory compliance issue!⚠️" : "BlinkTrust AI found " + totalError + " regulatory compliance issues!⚠️");
-      arr1.push(new Todo(fileNameMsg , undefined, undefined));
-    }
-    else{
-      arr1.push(new Todo("BlinkTrust AI found no regulatory compliance issue!✅" , undefined, undefined));
-    }
+    // if (totalError > 0) 
+    // {
+    //   let fileNameMsg = (totalError === 1 ? "BlinkTrust AI found only 1 regulatory compliance issue!⚠️" : "BlinkTrust AI found " + totalError + " regulatory compliance issues!⚠️");
+    //   arr1.push(new Todo(fileNameMsg , undefined, undefined));
+    // }
+    // else{
+    //   arr1.push(new Todo("BlinkTrust AI found no regulatory compliance issue!✅" , undefined, undefined));
+    // }
+
+    let faq1 = "GDPR";
+    childTreeItem.push(new Todo(faq1, undefined, undefined, 0));
+
+    let faq2 = "CCPA";
+    childTreeItem.push(new Todo(faq2, undefined, undefined, 0));
+
+    let faq3 = "India";
+    childTreeItem.push(new Todo(faq3, undefined, undefined, 0));
+
+    let product = "Access regulatory & reports";
+    parentTreeItem.push(new Todo(product, childTreeItem, undefined));
 
     // TODO: find a better way
-    return arr1.sort(({ label: label1 }, { label: label2 }) => {
+    return parentTreeItem.sort(({ label: label1 }, { label: label2 }) => {
       const l1 = label1.toLowerCase();
       const l2 = label2.toLowerCase();
 
@@ -139,6 +152,27 @@ class Todo extends TreeItem {
     super({ label:label, highlights:[[0,5],[9,12]] }, children ? TreeItemCollapsibleState.Collapsed : TreeItemCollapsibleState.None);
     
     let iconSvg = undefined;
+    let routingPath = undefined;
+
+    if (label === "GDPR") {
+      routingPath = vscode.Uri.from({
+        scheme: "https",
+        authority: "www.blinktrust.com",
+        path: "gdpr",
+      });
+    } else if (label === "CCPA") {
+      routingPath = vscode.Uri.from({
+        scheme: "https",
+        authority: "www.blinktrust.com",
+        path: "ccpa",
+      });
+    } else {
+      routingPath = vscode.Uri.from({
+        scheme: "https",
+        authority: "www.blinktrust.com",
+        path: "india",
+      });
+    }
 
     if (icon === "critical"){
       iconSvg = vscode.Uri.from({
@@ -173,11 +207,13 @@ class Todo extends TreeItem {
     this.iconPath = children ?  (icon ? iconSvg : new ThemeIcon('file'))  : (icon ? iconSvg: undefined) ;
     this.resourceUri = children ? path : undefined;
     this.description = description? description : !!children;
-    this.command = !children ? {
-      command: COMMANDS.OPEN_FILE,
-      title: 'Open file',
-      arguments: [path, col]
-    } : undefined;
+    this.command = !children
+      ? {
+          command: COMMANDS.OPEN_LINK,
+          title: "Open Link",
+          arguments: [routingPath],
+        }
+      : undefined;
   }
 }
 

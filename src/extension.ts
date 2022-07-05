@@ -27,6 +27,7 @@ import {
   WELCOMEMSG,
   DASHBOARDURL,
   BLINKHUB_CONTEXT,
+  JsApiComment,
 } from "./constants";
 import { Decoration } from "./decoration";
 import { TodoTreeListProvider } from "./providers";
@@ -39,6 +40,8 @@ import axios from "axios";
 
 import { showErrorMessage, showInfoMessage, showWarnMessage } from "./message";
 import { TodoTreeListPlatform } from "./platform";
+import { start } from "repl";
+import { constants } from "buffer";
 
 var util = require("./js/decoUtil");
 let machine: any = { os: {}, package: {} };
@@ -121,11 +124,15 @@ export function activate(context: vscode.ExtensionContext) {
               (uri: Uri, col: number) => {
                 window.showTextDocument(uri).then((editor: TextEditor) => {
                   const pos = new Position(col, 0);
+                  const pos2 = new Position(col + 1, 0);
                   editor.revealRange(
-                    new Range(pos, pos),
+                    new Range(pos, pos2),
                     TextEditorRevealType.InCenterIfOutsideViewport
                   );
-                  editor.selection = new Selection(pos, pos);
+                  editor.selection = new Selection(pos, pos2);
+                  editor.setDecorations(highlightDecoration, [
+                    new Range(pos, pos2),
+                  ]);
                 });
               }
             )
@@ -225,9 +232,35 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("blinkhubScanner.openlink", async (data) => {
-      console.log(data);
-      vscode.env.openExternal(vscode.Uri.parse(data));
+    vscode.commands.registerCommand(
+      "blinkhubScanner.openlink",
+      async (data) => {
+        vscode.env.openExternal(vscode.Uri.parse(data));
+      }
+    )
+  );
+
+  const highlightDecoration = vscode.window.createTextEditorDecorationType({
+    backgroundColor: "#C2DED1",
+    // backgroundColor: "red",
+  });
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("blinkhubScanner.apiSnippet", async () => {
+      const { activeTextEditor } = vscode.window;
+      if (!activeTextEditor) {
+        vscode.window.showErrorMessage("No active text editor");
+        return;
+      }
+
+      activeTextEditor.edit((builder) => {
+        builder.insert(new Position(0,0), '// export const apiCall = (data) =>  {');
+        builder.insert(new Position(0,0), '\n');
+        builder.insert(new Position(0,0), '//  const { data } = axios.post(`https://api.blinktrustai.com/api/v1/vault-service/tokenize`, data);');
+        builder.insert(new Position(0,0), '\n');
+        builder.insert(new Position(0,0), '// }');
+        builder.insert(new Position(0,0), '\n');
+      });
     })
   );
 

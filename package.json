@@ -28,7 +28,7 @@
     "JavaScript",
     "TypeScript",
     "HIPAA",
-    "CDPA",
+    "CCPA",
     "Code Analysis"
   ],
   "publisher": "BlinkTrust AI",
@@ -38,6 +38,7 @@
     "onCommand:blinkhubScanner.authenticate",
     "onCommand:blinkhubScanner.refresh",
     "onCommand:blinkhubScanner.openlink",
+    "onCommand:blinkhubScanner.apiSnippet",
     "onView:blinkhubScanner",
     "onLanguage:markdown",
     "*"
@@ -139,6 +140,11 @@
       {
         "command": "blinkhubScanner.openlink",
         "title": "Openlink",
+        "category": "BlinkTrustAI"
+      },
+      {
+        "command": "blinkhubScanner.apiSnippet",
+        "title" : "API Snippet",
         "category": "BlinkTrustAI"
       }
     ],
