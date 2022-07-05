@@ -146,7 +146,7 @@ class Todo extends TreeItem {
       routingPath = vscode.Uri.from({
         scheme: "https",
         authority: "www.blinktrust.com",
-        path: "report.html",
+        path: "btvault",
       });
     }
 
