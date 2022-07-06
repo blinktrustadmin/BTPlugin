@@ -143,10 +143,10 @@ function createDiagnostic(lineOfText: vscode.TextLine, childToDo: DiagnosticsCon
         "target": {
           // @ts-ignore
           "$mid": 1,
-          "external": "https://bhscanner.s3.amazonaws.com/help/"+childToDo.key.toLowerCase()+".html",
-          "path": "/help/"+childToDo.key.toLowerCase()+".html",
+          "external": "https://blinktrustai-errors.s3.ap-south-1.amazonaws.com/"+childToDo.key.toLowerCase()+".html",
+          "path": "/"+childToDo.key.toLowerCase()+".html",
           "scheme": "https",
-          "authority": "bhscanner.s3.amazonaws.com"
+          "authority": "blinktrustai-errors.s3.ap-south-1.amazonaws.com"
         }
       };//childToDo.referenceUrl;
 

@@ -549,7 +549,7 @@ export class Emojinfo implements vscode.CodeActionProvider {
     );
     action.command = {
       command: COMMAND,
-      title: "Learn more about fixmes",
+      title: "Learn more about fixes",
       tooltip: "This will open the unicode fixme page.",
     };
     action.diagnostics = [diagnostic];
