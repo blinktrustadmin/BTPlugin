@@ -2,6 +2,7 @@ import { EventEmitter, GlobPattern, ThemeIcon, TreeDataProvider, TreeItem, TreeI
 import { COMMANDS, EXCLUDE, INCLUDE, MAX_RESULTS, REGEX, TODO, VALIDATOR_ERROR_MESSAGES, VALIDATOR_ERROR_REASONS, VALIDATOR_REGEXPS, VALIDATOR_REGEXPS_KEYS, VALIDATOR_SEVERTY_ICON } from './constants';
 import { Decoration } from './decoration';
 import * as vscode from "vscode";
+import { TokenManager } from './TokenManager';
 
 export class TodoTreeListRegulatory implements TreeDataProvider<Todo> {
   private _onDidChangeTreeData = new EventEmitter<Todo | undefined | null | void>();
@@ -155,23 +156,11 @@ class Todo extends TreeItem {
     let routingPath = undefined;
 
     if (label === "GDPR") {
-      routingPath = vscode.Uri.from({
-        scheme: "https",
-        authority: "www.blinktrust.com",
-        path: "gdpr",
-      });
+      routingPath = vscode.Uri.parse(`https://www.blinktrust.com/question?type=gdpr&t=${TokenManager.getToken()}`);
     } else if (label === "CCPA") {
-      routingPath = vscode.Uri.from({
-        scheme: "https",
-        authority: "www.blinktrust.com",
-        path: "ccpa",
-      });
+      routingPath = vscode.Uri.parse(`https://www.blinktrust.com/question?type=ccpa&t=${TokenManager.getToken()}`);
     } else {
-      routingPath = vscode.Uri.from({
-        scheme: "https",
-        authority: "www.blinktrust.com",
-        path: "india",
-      });
+      routingPath = vscode.Uri.parse(`https://www.blinktrust.com/question?type=india&t=${TokenManager.getToken()}`);
     }
 
     if (icon === "critical"){

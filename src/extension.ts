@@ -254,12 +254,18 @@ export function activate(context: vscode.ExtensionContext) {
       }
 
       activeTextEditor.edit((builder) => {
-        builder.insert(new Position(0,0), '// export const apiCall = (data) =>  {');
-        builder.insert(new Position(0,0), '\n');
-        builder.insert(new Position(0,0), '//  const { data } = axios.post(`https://api.blinktrustai.com/api/v1/vault-service/tokenize`, data);');
-        builder.insert(new Position(0,0), '\n');
-        builder.insert(new Position(0,0), '// }');
-        builder.insert(new Position(0,0), '\n');
+        builder.insert(
+          new Position(0, 0),
+          "// export const apiCall = (data) =>  {"
+        );
+        builder.insert(new Position(0, 0), "\n");
+        builder.insert(
+          new Position(0, 0),
+          "//  const { data } = axios.post(`https://api.blinktrustai.com/api/v1/vault-service/tokenize`, data);"
+        );
+        builder.insert(new Position(0, 0), "\n");
+        builder.insert(new Position(0, 0), "// }");
+        builder.insert(new Position(0, 0), "\n");
       });
     })
   );
@@ -430,9 +436,16 @@ export class Emojizer implements vscode.CodeActionProvider {
 
     const replaceWithSmileyHankyFix = this.createFix(document, range, "FILE");
 
+    const replaceWithAPI = this.createFix(document, range, "API");
+
     const commandAction = this.createCommand();
 
-    return [commandAction, replaceWithSmileyFix, replaceWithSmileyHankyFix];
+    return [
+      commandAction,
+      replaceWithSmileyFix,
+      replaceWithSmileyHankyFix,
+      replaceWithAPI,
+    ];
   }
 
   private isAtStartOfSmiley(
@@ -487,6 +500,48 @@ export class Emojizer implements vscode.CodeActionProvider {
         editText.length
       );
       fix.edit.insert(document.uri, newRange.start, editText);
+    } else if (emoji === "API") {
+      fix = new vscode.CodeAction(
+        `Insert Vault API (BlinkTrust AI)`,
+        vscode.CodeActionKind.QuickFix
+      );
+
+      fix.edit = new vscode.WorkspaceEdit();
+
+      const fileExtension = document.fileName
+        .split("/")
+        .reverse()[0]
+        .split(".")
+        .reverse()[0]
+        .toLocaleLowerCase();
+
+      if (fileExtension === "py") {
+        let editText = Delimiter.getDelimiter(document.languageId).replace(
+          "text",
+          "@bt-ignore <please let us the reason to ignore>\r\n"
+        );
+
+        let newRange: vscode.Range = new Range(
+          range.start.line - 1,
+          0,
+          range.start.line,
+          editText.length
+        );
+        fix.edit.insert(document.uri, newRange.start, editText);
+      } else if (fileExtension === "js") {
+        let editText =
+          "/* export const apiCall = (payload) =>  { \r\n  const { data } = axios.post(`https://api.blinktrustai.com/api/v1/vault-service/tokenize`, data);\r\n} */\r\n";
+
+        let newRange: vscode.Range = new Range(
+          range.start.line - 1,
+          0,
+          range.start.line,
+          editText.length
+        );
+        fix.edit.insert(document.uri, newRange.start, editText);
+      } else {
+        vscode.window.showErrorMessage(`Language not supported yet.`);
+      }
     } else {
       fix = new vscode.CodeAction(
         `Ignore suggestions for current file (BlinkTrust AI)`,
