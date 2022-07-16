@@ -31,7 +31,7 @@
     "CCPA",
     "Code Analysis"
   ],
-  "publisher": "BlinkTrust AI",
+  "publisher": "blinktrust",
   "icon": "media/bhub.png",
   "activationEvents": [
     "onCommand:blinkhubScanner.dashboard",
@@ -144,7 +144,7 @@
       },
       {
         "command": "blinkhubScanner.apiSnippet",
-        "title" : "API Snippet",
+        "title": "API Snippet",
         "category": "BlinkTrustAI"
       }
     ],
@@ -342,6 +342,9 @@
         }
       }
     }
+  },
+  "repository": {
+    "url": "https://github.com/blinktrustadmin/BTPlugin"
   },
   "scripts": {
     "vscode:prepublish": "npm run package",

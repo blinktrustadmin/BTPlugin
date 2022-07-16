@@ -516,11 +516,7 @@ export class Emojizer implements vscode.CodeActionProvider {
         .toLocaleLowerCase();
 
       if (fileExtension === "py") {
-        let editText = Delimiter.getDelimiter(document.languageId).replace(
-          "text",
-          "@bt-ignore <please let us the reason to ignore>\r\n"
-        );
-
+        let editText = `"""response = requests.post("https://api.blinktrustai.com/api/v1/vault-service/detokenize",\r\n data = {\r\n'organization': 'socommerz',\r\n'customerId': 'cust_01',\r\n'table': 'table_name'\r\n})"""`;
         let newRange: vscode.Range = new Range(
           range.start.line - 1,
           0,
@@ -530,8 +526,7 @@ export class Emojizer implements vscode.CodeActionProvider {
         fix.edit.insert(document.uri, newRange.start, editText);
       } else if (fileExtension === "js") {
         let editText =
-          "/* export const apiCall = (payload) =>  { \r\n  const { data } = axios.post(`https://api.blinktrustai.com/api/v1/vault-service/tokenize`, data);\r\n} */\r\n";
-
+          `/* export const apiCall = (payload) =>  { \r\n  const { data } = axios.post("https://api.blinktrustai.com/api/v1/vault-service/detokenize",\r\n {\r\n'organization': 'socommerz',\r\n'customerId': 'cust_01',\r\n'table': 'table_name'\r\n});\r\n} */\r\n`;
         let newRange: vscode.Range = new Range(
           range.start.line - 1,
           0,
