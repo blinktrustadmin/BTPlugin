@@ -54,10 +54,10 @@ export const VALIDATOR_REGEXPS: { [key: string]: any } = Object.seal({
     /\d+(\s+[nsew]\.?)?(\s+\w+){1,}\s+(?:st(?:\.|reet)?|dr(?:\.|ive)?|pl(?:\.|ace)?|ave(?:\.|nue)?|rd|road|lane|boulevard|blvd|loop|way|circle|cir|court|ct|plaza|square|run|parkway|point|pike|square|driveway|trace|park|terrace)(\s|[^a-z]|$)/,
   PROPERTY_STREET_ADDRESS:
     / (Road|Rd|Square|Street|St\.?|Parkway|Pkwy\.?|Ave\.?|Avenue|Broadway|Boulevard|Blvd.?|Lane|Terrace|Place|Gardens|Yard|Court|Way|Drive|Dr\.?|lazy)( (north|west|south|east))?$/,
-  PROPERTY_ADDRESS_UK:
-    /.*([A-IK-PR-UWYZ]?[A-H,K-Y][0-9]?[0-9A-HJKMNP-Y][ ]?[0-9][ABD-HJLNP-UW-Z][ABD-HJLNP-UW-Z]([,]?[ ]?[A-Z]{2})?)/,
-  PROPERTY_ADDRESS_AU:
-    /((\b(?:(?!\s{2,}|\$|\:|\.\d).)*\s(?:Alley|Ally|Arcade|Arc|Avenue|Ave|Boulevard|Bvd|Bypass|Bypa|Circuit|Cct|Close|Cl|Corner|Crn|Court|Ct|Crescent|Cres|Cul-de-sac|Cds|Drive|Dr|Esplanade|Esp|Green|Grn|Grove|Gr|Highway|Hwy|Junction|Jnc|Lane|Lane|Link|Link|Mews|Mews|Parade|Pde|Place|Pl|Ridge|Rdge|Road|Rd|Square|Sq|Street|St|Terrace|Tce|ALLEY|ALLY|ARCADE|ARC|AVENUE|AVE|BOULEVARD|BVD|BYPASS|BYPA|CIRCUIT|CCT|CLOSE|CL|CORNER|CRN|COURT|CT|CRESCENT|CRES|CUL-DE-SAC|CDS|DRIVE|DR|ESPLANADE|ESP|GREEN|GRN|GROVE|GR|HIGHWAY|HWY|JUNCTION|JNC|LANE|LANE|LINK|LINK|MEWS|MEWS|PARADE|PDE|PLACE|PL|RIDGE|RDGE|ROAD|RD|SQUARE|SQ|STREET|ST|TERRACE|TCE))\s.*?(?=\s{2,}))|(\b(?:(?!\s{2,}).)*)\b(VIC|NSW|ACT|QLD|NT|SA|TAS|WA).?\s*(\b\d{4})/,
+  // PROPERTY_ADDRESS_UK:
+  //   /.*([A-IK-PR-UWYZ]?[A-H,K-Y][0-9]?[0-9A-HJKMNP-Y][ ]?[0-9][ABD-HJLNP-UW-Z][ABD-HJLNP-UW-Z]([,]?[ ]?[A-Z]{2})?)/,
+  // PROPERTY_ADDRESS_AU:
+  //   /((\b(?:(?!\s{2,}|\$|\:|\.\d).)*\s(?:Alley|Ally|Arcade|Arc|Avenue|Ave|Boulevard|Bvd|Bypass|Bypa|Circuit|Cct|Close|Cl|Corner|Crn|Court|Ct|Crescent|Cres|Cul-de-sac|Cds|Drive|Dr|Esplanade|Esp|Green|Grn|Grove|Gr|Highway|Hwy|Junction|Jnc|Lane|Lane|Link|Link|Mews|Mews|Parade|Pde|Place|Pl|Ridge|Rdge|Road|Rd|Square|Sq|Street|St|Terrace|Tce|ALLEY|ALLY|ARCADE|ARC|AVENUE|AVE|BOULEVARD|BVD|BYPASS|BYPA|CIRCUIT|CCT|CLOSE|CL|CORNER|CRN|COURT|CT|CRESCENT|CRES|CUL-DE-SAC|CDS|DRIVE|DR|ESPLANADE|ESP|GREEN|GRN|GROVE|GR|HIGHWAY|HWY|JUNCTION|JNC|LANE|LANE|LINK|LINK|MEWS|MEWS|PARADE|PDE|PLACE|PL|RIDGE|RDGE|ROAD|RD|SQUARE|SQ|STREET|ST|TERRACE|TCE))\s.*?(?=\s{2,}))|(\b(?:(?!\s{2,}).)*)\b(VIC|NSW|ACT|QLD|NT|SA|TAS|WA).?\s*(\b\d{4})/,
   SSN: /\b\d{3}[ -.]\d{2}[ -.]\d{4}\b/, //\b\d{3}[\s+-]\d{2}[\s+-]\d{4}\b
   IPADDRESS: /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/,
   //CREDITCARD: /\b[3456]\d{3}[\s+-]\d{4}[\s+-]\d{4}[\s+-]\d{4}\b/, ///\d{4}[ -]?\d{4}[ -]?\d{4}[ -]?\d{4}|\d{4}[ -]?\d{6}[ -]?\d{4}\d?/g
@@ -67,24 +67,24 @@ export const VALIDATOR_REGEXPS: { [key: string]: any } = Object.seal({
   PHONE_US:
     /(\(?\+?[0-9]{1,2}\)?[-. ]?)?(\(?[0-9]{3}\)?|[0-9]{3})[-. ]?([0-9]{3}[-. ]?[0-9]{4}|\b[A-Z0-9]{7}\b)/g, //\b(\+\d{1,2}\s)?\(?\d{3}\)?[\s+.-]\d{3}[\s+.-]\d{4}\b
   // PHONE_INDIA: /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/,
-  PHONE_INDIA:
-    /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/gim,
-  PHONE_AU:
-    /^(?:\+?(61))? ?(?:\((?=.*\)))?(0?[2-57-8])\)? ?(\d\d(?:[- ](?=\d{3})|(?!\d\d[- ]?\d[- ]))\d\d[- ]?\d[- ]?\d{3})$/,
-  POSTAL_CODE_US:
-    /\b((Chicago,?|Houston,?|Philadelphia,?|Phoenix,?|Alabama,?|Alaska,?|Arizona,?|Arkansas,?|California,?|Colorado,?|Connecticut,?|Delaware,?|Florida,?|Georgia,?|Hawaii,?|Idaho,?|Illinois,?|Indiana,?|Iowa,?|Kansas,?|Kentucky,?|Louisiana,?|Maine,?|Maryland,?|Massachusetts,?|Michigan,?|Minnesota,?|Mississippi,?|Missouri,?|Montana,?|North Carolina,?|North Dakota,?|Nebraska,?|Nevada,?|New Hampshire,?|New Jersey,?|New Mexico,?|New York,?|Ohio,?|Oklahoma,?|Oregon,?|Pennsylvania,?|Rhode Island,?|South Carolina,?|South Dakota,?|Tennessee,?|Texas,?|Utah,?|Vermont,?|Virginia,?|Washington,?|West Virginia,?|Wisconsin,?|Wyoming,?|American Samoa,?|D\.C\.,?|Guam,?|Puerto Rico,?|AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NC|ND|NE|NV|NH|NJ|NM|NY|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|AS|DC|GU|MP|PR|VI)\s+\d{5}(-\d{4})?)\b/,
-  POSTAL_CODE_UK:
-    /^([ ]?["]?[A-PR-UWYZ](([0-9](([0-9]|[A-HJKSTUW])?)?)|([A-HK-Y][0-9]([0-9]|[ABEHMNPRVWXY])?)) ?[0-9][ABD-HJLNP-UW-Z]{2}["]?)$/,
+  // PHONE_INDIA:
+  //   /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/gim,
+  // PHONE_AU:
+  //   /^(?:\+?(61))? ?(?:\((?=.*\)))?(0?[2-57-8])\)? ?(\d\d(?:[- ](?=\d{3})|(?!\d\d[- ]?\d[- ]))\d\d[- ]?\d[- ]?\d{3})$/,
+  // POSTAL_CODE_US:
+  //   /\b((Chicago,?|Houston,?|Philadelphia,?|Phoenix,?|Alabama,?|Alaska,?|Arizona,?|Arkansas,?|California,?|Colorado,?|Connecticut,?|Delaware,?|Florida,?|Georgia,?|Hawaii,?|Idaho,?|Illinois,?|Indiana,?|Iowa,?|Kansas,?|Kentucky,?|Louisiana,?|Maine,?|Maryland,?|Massachusetts,?|Michigan,?|Minnesota,?|Mississippi,?|Missouri,?|Montana,?|North Carolina,?|North Dakota,?|Nebraska,?|Nevada,?|New Hampshire,?|New Jersey,?|New Mexico,?|New York,?|Ohio,?|Oklahoma,?|Oregon,?|Pennsylvania,?|Rhode Island,?|South Carolina,?|South Dakota,?|Tennessee,?|Texas,?|Utah,?|Vermont,?|Virginia,?|Washington,?|West Virginia,?|Wisconsin,?|Wyoming,?|American Samoa,?|D\.C\.,?|Guam,?|Puerto Rico,?|AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NC|ND|NE|NV|NH|NJ|NM|NY|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|AS|DC|GU|MP|PR|VI)\s+\d{5}(-\d{4})?)\b/,
+  // POSTAL_CODE_UK:
+  //   /^([ ]?["]?[A-PR-UWYZ](([0-9](([0-9]|[A-HJKSTUW])?)?)|([A-HK-Y][0-9]([0-9]|[ABEHMNPRVWXY])?)) ?[0-9][ABD-HJLNP-UW-Z]{2}["]?)$/,
   //POSTAL_CODE_CA: /^[a-zA-Z]\d{1}[a-zA-Z](\-| |)\d{1}[a-zA-Z]\d{1}$/,
-  POSTAL_CODE_BR: /^[0-9]{2}\.[0-9]{3}-[0-9]{3}$/,
-  POSTAL_CODE_FR:
-    /(^[0-8]\d\d{3}$)|(^9[0-5]\d{3}$)|(^97[1-6]\d{2}$)|(^98[46-8]\d{2}$)/,
+  // POSTAL_CODE_BR: /^[0-9]{2}\.[0-9]{3}-[0-9]{3}$/,
+  // POSTAL_CODE_FR:
+  //   /(^[0-8]\d\d{3}$)|(^9[0-5]\d{3}$)|(^97[1-6]\d{2}$)|(^98[46-8]\d{2}$)/,
   MAC_ADDRESS:
     /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$/,
-  LICENSE_PLATE_NUMBERS: /\b[0-9A-Z]{3}([^ 0-9A-Z]|\s)?[0-9]{4}\b/,
+  // LICENSE_PLATE_NUMBERS: /\b[0-9A-Z]{3}([^ 0-9A-Z]|\s)?[0-9]{4}\b/,
   DOB: /\b(birth|birthdate|birthday|dob|born)\W+(?:\w+\W+){0,5}?(?<REDACT>(\d{4}|\d{1,2})[\/\-]\d{1,2}[\/\-](\d{4}|\d{1,2}))\b/,
 
-  ZIPCODE: /\b\d{5}\b(-\d{4})?\b/g,
+  // ZIPCODE: /\b\d{5}\b(-\d{4})?\b/g,
   USDL: /\b[A-Za-z]{1}[0-9]{7}\b/,
   UKDL: /\b[\w9]{5}\d{6}[\w9]{2}\d{5}\b/,
   INDL: /^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$/,
@@ -133,7 +133,7 @@ export const VALIDATOR_REGEXPS: { [key: string]: any } = Object.seal({
     /[tT][wW][iI][tT][tT][eE][rR].*[1-9][0-9]+-[0-9a-zA-Z]{40}/,
   TWITTER_OAUTH: /[tT][wW][iI][tT][tT][eE][rR].*['|\"][0-9a-zA-Z]{35,44}['|\"]/,
   // UK_PASSPORT: /\d{9}\D/,
-  VIN: /^(?=.*[0-9])(?=.*[A-z])[0-9A-z-]{17}$/,
+  // VIN: /^(?=.*[0-9])(?=.*[A-z])[0-9A-z-]{17}$/,
 });
 
 export const VALIDATOR_REGEXPS_KEYS = Object.keys(VALIDATOR_REGEXPS);

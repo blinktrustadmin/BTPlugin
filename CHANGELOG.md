@@ -7,3 +7,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 - Initial release
+
+## [Released - v1.0.5]
+
+- Major enhancement in UI.
+- Bug Fixes

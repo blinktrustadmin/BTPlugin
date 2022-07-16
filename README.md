@@ -12,6 +12,7 @@ BlinkTrustAI's Sencitive Data Discovery provided by <a href="https://www.blinktr
   - [Supported languages](#supported-languages)
 - [Install the extension](#install-the-extension)
 - [Authentication](#authentication)
+- [Uninstall the extension](#uninstall-the-extension)
 - [Run analysis](#run-analysis)
 
 ## Introduction
@@ -34,13 +35,13 @@ Once installed you can find a BlinkTrustAI icon in the sidebar ![extension icon]
 
 BlinkTrustAI's extension provides all the suggestions in a concise and clean view containing all information:
 
-![Suggestion example](https://bhscanner.s3.amazonaws.com/icons/home.png)
+![Suggestion example](https://bt-plugin-resource.s3.ap-south-1.amazonaws.com/images/home.png)
 
 ## Authentication
 To authenticate follow the steps:
 
 1. Once the extension is installed, click on the BlinkTrustAI Icon in the left navigation bar, to show the following screen:
-   ![Authentication](https://bhscanner.s3.amazonaws.com/icons/installation.png)
+   ![Authentication](https://bt-plugin-resource.s3.ap-south-1.amazonaws.com/images/auth.png)
 
 2. Click **Get Started**. The extension relies on the GitHub authentication API and it will ask you
    to authenticate you against ypur GitHub's credentials:
@@ -59,11 +60,23 @@ To authenticate follow the steps:
 ## Run analysis
 In the IDE you will notice that the extension is already picking up the files and uploading them for analysis.
 
-![Run analysis](https://bhscanner.s3.amazonaws.com/icons/home.png)
+![Run analysis](https://bt-plugin-resource.s3.ap-south-1.amazonaws.com/images/home.png)
 
-![Audit Report](https://bhscanner.s3.amazonaws.com/icons/reports.png)
+![Audit Report](https://bt-plugin-resource.s3.ap-south-1.amazonaws.com/images/report.png)
 
 -----------------------------------------------------------------------------------------------------------
+
+
+## Uninstall the extension
+To uninstall extension follow the steps:
+
+1. Navigate to extensions from sidebar.
+
+2. Search for the extension. And open the plugin.
+ ![Uninstall the extension](https://bt-plugin-resource.s3.ap-south-1.amazonaws.com/images/uninstall.png)
+
+3. There will be an option to uninstall plugin. Click on uninstall and reload the vscode.
+
 ## Following extension guidelines
 
 Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.

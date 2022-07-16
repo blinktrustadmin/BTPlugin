@@ -13,6 +13,7 @@ import {
   VALIDATOR_SEVERTY_ICON,
   VALIDATOR_ERROR_LEVEL,
 } from "./constants";
+
 //import * as addressparser from 'parse-address-string';
 //var addressparser = require('addressparser');
 //var parseAddress = require('parse-address-string');
@@ -69,6 +70,10 @@ export function refreshDiagnostics(
       continue;
     }
     const strToTest = text.replace(".", "");
+
+    // for (let i = 0; i < VALIDATOR_REGEXPS_KEYS.length; i++) {
+    //   let key = VALIDATOR_REGEXPS_KEYS[i];
+    //   var REGEX_NEW = VALIDATOR_REGEXPS[key];
 
     for (let i = 0; i < VALIDATOR_REGEXPS_KEYS.length; i++) {
       let key = VALIDATOR_REGEXPS_KEYS[i];
@@ -174,13 +179,6 @@ function createDiagnostic(
   if (childToDo.message !== undefined) {
     message = childToDo.message;
   }
-
-  /*const editor = vscode.window.activeTextEditor;
-    if(editor){
-        editor.edit(edit => {
-            edit.insert(new vscode.Position(lineIndex, index + childToDo.lineContent.length + 5), "// FIXME: " + childToDo.referenceUrl);
-        });
-    }*/
 
   let errorLevel = vscode.DiagnosticSeverity.Error;
   if (childToDo.level === "error") {

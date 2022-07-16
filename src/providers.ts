@@ -1,20 +1,41 @@
-import { EventEmitter, GlobPattern, ThemeIcon, TreeDataProvider, TreeItem, TreeItemCollapsibleState, Uri, workspace } from 'vscode';
-import { COMMANDS, EXCLUDE, INCLUDE, MAX_RESULTS, REGEX, TODO, VALIDATOR_ERROR_MESSAGES, VALIDATOR_ERROR_REASONS, VALIDATOR_REGEXPS, VALIDATOR_REGEXPS_KEYS, VALIDATOR_SEVERTY_ICON } from './constants';
-import { Decoration } from './decoration';
+import {
+  EventEmitter,
+  GlobPattern,
+  ThemeIcon,
+  TreeDataProvider,
+  TreeItem,
+  TreeItemCollapsibleState,
+  Uri,
+  workspace,
+} from "vscode";
+import {
+  COMMANDS,
+  EXCLUDE,
+  INCLUDE,
+  MAX_RESULTS,
+  REGEX,
+  TODO,
+  VALIDATOR_ERROR_MESSAGES,
+  VALIDATOR_ERROR_REASONS,
+  VALIDATOR_REGEXPS,
+  VALIDATOR_REGEXPS_KEYS,
+  VALIDATOR_SEVERTY_ICON,
+} from "./constants";
+import { Decoration } from "./decoration";
 import * as vscode from "vscode";
 
 export class TodoTreeListProvider implements TreeDataProvider<Todo> {
-  private _onDidChangeTreeData = new EventEmitter<Todo | undefined | null | void>();
+  private _onDidChangeTreeData = new EventEmitter<
+    Todo | undefined | null | void
+  >();
   readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
-
 
   getTreeItem(element: Todo): TreeItem {
     return element;
   }
 
   async getChildren(element?: Todo): Promise<Todo[]> {
-    if (!element) 
-    {
+    if (!element) {
       return Promise.resolve(await this.getTodoList());
     }
     return Promise.resolve(element.children ?? []);
@@ -35,21 +56,25 @@ export class TodoTreeListProvider implements TreeDataProvider<Todo> {
         const file = files[i];
         const doc = await workspace.openTextDocument(file);
         const docUri = doc.uri;
-        const fileName = doc.fileName
-          .replace(/\\/g, '/')
-          .split('/').pop()
-          ?? 'unknown';
+        const fileName =
+          doc.fileName.replace(/\\/g, "/").split("/").pop() ?? "unknown";
         let k = 1;
 
         for (let j = 0; j < doc.lineCount; j++) {
           var text = doc.lineAt(j).text;
-          if (doc.fileName.endsWith("html")){
-            text = text.replace(/<[^>]+>/g, '').replace(/=/g, ' ').replace(/"/g, '').replace(/;/g, '');
+          if (doc.fileName.endsWith("html")) {
+            text = text
+              .replace(/<[^>]+>/g, "")
+              .replace(/=/g, " ")
+              .replace(/"/g, "")
+              .replace(/;/g, "");
           }
           text = text.trim();
-          if (text === "") { continue;}
+          if (text === "") {
+            continue;
+          }
 
-          const strToTest = text.replace('.', '');
+          const strToTest = text.replace(".", "");
           let key: string;
           let errors = [];
           for (let i = 0; i < VALIDATOR_REGEXPS_KEYS.length; i++) {
@@ -57,7 +82,13 @@ export class TodoTreeListProvider implements TreeDataProvider<Todo> {
             var REGEX_NEW = VALIDATOR_REGEXPS[key];
             var found = false;
 
-            if (key === 'PROPERTY_UNIT_NUMBER' || key === 'PROPERTY_STREET_ADDRESS' || key === 'PROPERTY_ADDRESS' || key === 'POSTAL_CODE_US'|| key === 'POSTAL_CODE_UK'){
+            if (
+              key === "PROPERTY_UNIT_NUMBER" ||
+              key === "PROPERTY_STREET_ADDRESS" ||
+              key === "PROPERTY_ADDRESS" ||
+              key === "POSTAL_CODE_US" ||
+              key === "POSTAL_CODE_UK"
+            ) {
               if (REGEX_NEW.test(strToTest)) {
                 //const todoText = text.slice(text.indexOf(element) + element.length + 1, text.length);
                 var toDoMesg = VALIDATOR_ERROR_MESSAGES[key];
@@ -65,35 +96,60 @@ export class TodoTreeListProvider implements TreeDataProvider<Todo> {
                 var childToDo: Todo[] = [];
                 var m = REGEX_NEW.exec(text);
                 var s = "";
-                if (m !== null){
-                  s = (m !== undefined && m.length ? m[0] : undefined) ;
-                }
-                else{
+                if (m !== null) {
+                  s = m !== undefined && m.length ? m[0] : undefined;
+                } else {
                   s = text;
                 }
-                
-                childToDo.push(new Todo(`${toDoError}`, undefined, docUri, j, 'warning'));
-                arr2.push(new Todo(`${s}`, childToDo, docUri, j, VALIDATOR_SEVERTY_ICON[key].toLocaleLowerCase(), toDoMesg));
+
+                childToDo.push(
+                  new Todo(`${toDoError}`, undefined, docUri, j, "warning")
+                );
+                arr2.push(
+                  new Todo(
+                    `${s}`,
+                    childToDo,
+                    docUri,
+                    j,
+                    VALIDATOR_SEVERTY_ICON[key].toLocaleLowerCase(),
+                    toDoMesg
+                  )
+                );
                 found = true;
               }
-            }
-            else{
-              var words = text.split(' ');
-              words.forEach(element => {
+            } else {
+              var words = text.split(" ");
+              words.forEach((element) => {
                 if (REGEX_NEW.test(element)) {
                   //const todoText = text.slice(text.indexOf(element) + element.length + 1, text.length);
                   if (element) {
-                    if(key === "PHONE" && element.length > 12 ) {
-                        console.log("Phone Number", key);
-                    } 
-                    else{
+                    if (key === "PHONE" && element.length > 12) {
+                      console.log("Phone Number", key);
+                    } else {
                       var toDoMesg = VALIDATOR_ERROR_MESSAGES[key];
                       var toDoError = VALIDATOR_ERROR_REASONS[key];
                       var childToDo: Todo[] = [];
-            
-                      childToDo.push(new Todo(`${toDoError}`, undefined, docUri, j, 'warning'));
-                      
-                      arr2.push(new Todo(`${element}`, childToDo, docUri, j, VALIDATOR_SEVERTY_ICON[key].toLocaleLowerCase(), toDoMesg));
+
+                      childToDo.push(
+                        new Todo(
+                          `${toDoError}`,
+                          undefined,
+                          docUri,
+                          j,
+                          "warning"
+                        )
+                      );
+
+                      arr2.push(
+                        new Todo(
+                          `${element}`,
+                          childToDo,
+                          docUri,
+                          j,
+                          VALIDATOR_SEVERTY_ICON[key].toLocaleLowerCase(),
+                          toDoMesg
+                        )
+                      );
                       //arr2.push(new Todo(`${k}. ${element}`, undefined, docUri, j));
                       k++;
                       found = true;
@@ -101,11 +157,12 @@ export class TodoTreeListProvider implements TreeDataProvider<Todo> {
                   }
                 }
               });
-
-            }  
-            if (found) {break;}     
+            }
+            if (found) {
+              break;
+            }
           }
-          
+
           /*if (REGEX.test(text)) {
             const todoText = text.slice(text.indexOf(TODO) + TODO.length + 1, text.length);
             if (todoText) {
@@ -113,24 +170,29 @@ export class TodoTreeListProvider implements TreeDataProvider<Todo> {
               k++;
             }
           }*/
-
         }
 
-        if (arr2.length) 
-        {
-           arr1.push(new Todo(fileName, arr2, docUri));
-           totalError += (arr2.length - 1);
+        if (arr2.length) {
+          arr1.push(new Todo(fileName, arr2, docUri));
+          totalError += arr2.length - 1;
         }
       }
     }
 
-    if (totalError > 0) 
-    {
-      let fileNameMsg = (totalError === 1 ? "BlinkTrust AI found only 1 data security issue!⚠️" : "BlinkTrust AI found " + totalError + " data security issues!⚠️");
-      arr1.push(new Todo(fileNameMsg , undefined, undefined));
-    }
-    else{
-      arr1.push(new Todo("BlinkTrust AI found no data security issue!✅" , undefined, undefined));
+    if (totalError > 0) {
+      let fileNameMsg =
+        totalError === 1
+          ? "BlinkTrust AI found only 1 data security issue!⚠️"
+          : "BlinkTrust AI found " + totalError + " data security issues!⚠️";
+      arr1.push(new Todo(fileNameMsg, undefined, undefined));
+    } else {
+      arr1.push(
+        new Todo(
+          "BlinkTrust AI found no data security issue!✅",
+          undefined,
+          undefined
+        )
+      );
     }
 
     // TODO: find a better way
@@ -138,13 +200,11 @@ export class TodoTreeListProvider implements TreeDataProvider<Todo> {
       const l1 = label1.toLowerCase();
       const l2 = label2.toLowerCase();
 
-      if (l1 < l2) 
-      {
+      if (l1 < l2) {
         return -1;
       }
 
-      if (l1 > l2) 
-      {
+      if (l1 > l2) {
         return 1;
       }
 
@@ -160,57 +220,79 @@ export class TodoTreeListProvider implements TreeDataProvider<Todo> {
 class Todo extends TreeItem {
   label: string;
   children: Todo[] | undefined;
-  
-  constructor(label: string, children?: Todo[], path?: Uri, col?: number, icon?: string, description?: string) {
-    super({ label:label, highlights:[[0,5],[9,12]] }, children ? TreeItemCollapsibleState.Collapsed : TreeItemCollapsibleState.None);
-    
+
+  constructor(
+    label: string,
+    children?: Todo[],
+    path?: Uri,
+    col?: number,
+    icon?: string,
+    description?: string
+  ) {
+    super(
+      {
+        label: label,
+        highlights: [
+          [0, 5],
+          [9, 12],
+        ],
+      },
+      children
+        ? TreeItemCollapsibleState.Collapsed
+        : TreeItemCollapsibleState.None
+    );
+
     let iconSvg = undefined;
 
-    if (icon === "critical"){
+    if (icon === "critical") {
       iconSvg = vscode.Uri.from({
         scheme: "data",
-        path: 'image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="16" height="16" rx="2" fill="#AD1A1A"/><path d="M5 3H12V5H8C6.4 5 6 6.33333 6 7V9C6 10.6 7.33333 11 8 11H12V13H5C3.4 13 3 11.6667 3 11V5C3 3.4 4.33333 3 5 3Z" fill="white"/></svg>'
+        path: 'image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="16" height="16" rx="2" fill="#AD1A1A"/><path d="M5 3H12V5H8C6.4 5 6 6.33333 6 7V9C6 10.6 7.33333 11 8 11H12V13H5C3.4 13 3 11.6667 3 11V5C3 3.4 4.33333 3 5 3Z" fill="white"/></svg>',
       });
-    }
-    else if (icon === "high"){
+    } else if (icon === "high") {
       iconSvg = vscode.Uri.from({
         scheme: "data",
-        path: 'image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="16" height="16" rx="2" fill="#CE5019"/><path d="M3 3H6V7H10V3H13V13H10V9H6V13H3V3Z" fill="white"/><path d="M3 3H6V7H10V3H13V13H10V9H6V13H3V3Z" fill="white"/><path d="M3 3H6V7H10V3H13V13H10V9H6V13H3V3Z" fill="white"/><path d="M3 3H6V7H10V3H13V13H10V9H6V13H3V3Z" fill="white"/></svg>'
+        path: 'image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="16" height="16" rx="2" fill="#CE5019"/><path d="M3 3H6V7H10V3H13V13H10V9H6V13H3V3Z" fill="white"/><path d="M3 3H6V7H10V3H13V13H10V9H6V13H3V3Z" fill="white"/><path d="M3 3H6V7H10V3H13V13H10V9H6V13H3V3Z" fill="white"/><path d="M3 3H6V7H10V3H13V13H10V9H6V13H3V3Z" fill="white"/></svg>',
       });
-    }
-    else if (icon === "medium"){
+    } else if (icon === "medium") {
       iconSvg = vscode.Uri.from({
         scheme: "data",
-        path: 'image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="16" height="16" rx="2" fill="#D68000"/><rect x="3" y="3" width="3" height="10" fill="white"/><rect x="10" y="3" width="3" height="10" fill="white"/><path d="M8 7L6 3V7L7 10H8V7Z" fill="white"/><path d="M8 7L10 3V7L9 10H8V7Z" fill="white"/></svg>'
+        path: 'image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="16" height="16" rx="2" fill="#D68000"/><rect x="3" y="3" width="3" height="10" fill="white"/><rect x="10" y="3" width="3" height="10" fill="white"/><path d="M8 7L6 3V7L7 10H8V7Z" fill="white"/><path d="M8 7L10 3V7L9 10H8V7Z" fill="white"/></svg>',
       });
-    }
-    else if (icon === "low"){
+    } else if (icon === "low") {
       iconSvg = vscode.Uri.from({
         scheme: "data",
-        path: 'image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="16" height="16" rx="2" fill="#88879E"/><path d="M8 3H5V13H12V10H8V3Z" fill="white"/></svg>'
+        path: 'image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="16" height="16" rx="2" fill="#88879E"/><path d="M8 3H5V13H12V10H8V3Z" fill="white"/></svg>',
       });
-    }
-    else{
-      iconSvg = (icon ? new ThemeIcon(icon): undefined) ; //new ThemeIcon(icon);
+    } else {
+      iconSvg = icon ? new ThemeIcon(icon) : undefined; //new ThemeIcon(icon);
     }
 
     this.label = label;
     this.children = children;
-    this.iconPath = children ?  (icon ? iconSvg : new ThemeIcon('file'))  : (icon ? iconSvg: undefined) ;
+    this.iconPath = children
+      ? icon
+        ? iconSvg
+        : new ThemeIcon("file")
+      : icon
+      ? iconSvg
+      : undefined;
     this.resourceUri = children ? path : undefined;
-    this.description = description? description : !!children;
-    this.command = !children ? {
-      command: COMMANDS.OPEN_FILE,
-      title: 'Open file',
-      arguments: [path, col]
-    } : undefined;
+    this.description = description ? description : !!children;
+    this.command = !children
+      ? {
+          command: COMMANDS.OPEN_FILE,
+          title: "Open file",
+          arguments: [path, col],
+        }
+      : undefined;
   }
 }
 
 function pattern(glob: string[], def: string[]): GlobPattern {
   if (Array.isArray(glob) && glob.length) {
-    return '{' + glob.join(',') + '}';
+    return "{" + glob.join(",") + "}";
   }
 
-  return '{' + def.join(',') + '}';
+  return "{" + def.join(",") + "}";
 }

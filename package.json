@@ -78,7 +78,8 @@
         },
         {
           "id": "blinkhubScanner.views.support",
-          "name": "Help & feedback"
+          "name": "Help & feedback",
+          "when": "!loggedIn"
         }
       ]
     },
