@@ -79,7 +79,7 @@
         {
           "id": "blinkhubScanner.views.support",
           "name": "Help & feedback",
-          "when": "!loggedIn"
+          "when": "loggedIn"
         }
       ]
     },
