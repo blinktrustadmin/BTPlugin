@@ -38,6 +38,23 @@ export const REGEX_REASON: any = Object.seal({
   twillioApiKey: "Twillio api key",
   twitterAccessToken: "Twitter access token",
   twitterOath: "Twitter Oath token",
+  license: "License number",
+  francePhone: "France phone number",
+  germanPhone: "German phone number",
+  ukPhone: "UK phone number",
+  usPhone: "US phone number",
+  usStreetAddress: "US street address",
+  ibanCode: "IBAN code",
+
+
+  passportCanada: "Canadian Passport number",
+  nationalIdFrance: "France national id",
+  driverLicenseFrance: "Driver's license france",
+  germanyPassport: "German Passport number",
+  germanyLicense: "German License",
+  ukPassport: "UK passport number",
+  nhsUk: "NHS UK",
+  ssnUs: "SSN US",
 });
 
 export const REGEX_REASON_KEYS = Object.keys(REGEX_REASON);

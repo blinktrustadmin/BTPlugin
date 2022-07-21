@@ -62,27 +62,24 @@ export const refreshDiagnostics = (
             error,
             key
           );
+          console.log('CHild Diag IF ++', childDiagnostics);
         }
       } else {
         var words = text.split(" ");
         words.forEach((element: any) => {
           if (regex.test(element)) {
-            if (key === "PHONE" && element.length > 12) {
-            } else {
-              var message = REGEX_MESSAGE[key];
-              var error = REGEX_REASON[key];
-              var errorLevel = REGEX_LEVEL[key];
-              var result = regex.exec(text);
-              var temp = "";
-              childDiagnostics = new DiagnosticsContent(
-                message,
-                lineIndex,
-                errorLevel.toLowerCase(),
-                element,
-                error,
-                key
-              );
-            }
+            var message = REGEX_MESSAGE[key];
+            var error = REGEX_REASON[key];
+            var errorLevel = REGEX_LEVEL[key];
+            childDiagnostics = new DiagnosticsContent(
+              message,
+              lineIndex,
+              errorLevel.toLowerCase(),
+              element,
+              error,
+              key
+            );
+            console.log('CHild Diag', childDiagnostics);
           }
         });
       }

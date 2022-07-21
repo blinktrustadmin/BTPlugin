@@ -38,6 +38,22 @@ export const REGEX_ICON: any = Object.seal({
   twillioApiKey: "key",
   twitterAccessToken: "key",
   twitterOath: "key",
+  license: "key",
+  francePhone: "key",
+  germanPhone: "key",
+  ukPhone: "key",
+  usPhone: "key",
+  usStreetAddress: "key",
+  ibanCode: "key",
+
+  passportCanada: "key",
+  nationalIdFrance: "key",
+  driverLicenseFrance: "key",
+  germanyPassport: "key",
+  germanyLicense: "key",
+  ukPassport: "key",
+  nhsUk: "key",
+  ssnUs: "key",
 });
 
 export const REGEX_ICON_KEYS = Object.keys(REGEX_ICON);

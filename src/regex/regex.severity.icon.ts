@@ -38,6 +38,21 @@ export const REGEX_SEVERITY_ICON: any = Object.seal({
   twillioApiKey: "high",
   twitterAccessToken: "high",
   twitterOath: "high",
+  license: "medium",
+  francePhone: "medium",
+  germanPhone: "medium",
+  ukPhone: "medium",
+  usPhone: "medium",
+  usStreetAddress: "medium",
+  ibanCode: "medium",
+  passportCanada: "medium",
+  nationalIdFrance: "medium",
+  driverLicenseFrance: "medium",
+  germanyPassport: "medium",
+  germanyLicense: "medium",
+  ukPassport: "medium",
+  nhsUk: "medium",
+  ssnUs: "medium",
 });
 
 export const REGEX_SEVERITY_ICON_KEYS = Object.keys(REGEX_SEVERITY_ICON);

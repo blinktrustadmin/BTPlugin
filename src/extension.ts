@@ -98,10 +98,11 @@ export function activate(context: vscode.ExtensionContext) {
           vscode.window.onDidChangeActiveTextEditor((e) => {
             if (e) {
               editor = e;
+              subscribeToDocumentChanges(context, diagnostics);
             }
           });
 
-          vscode.workspace.onDidChangeTextDocument(() => {
+          vscode.workspace.onDidChangeTextDocument(async () => {
             subscribeToDocumentChanges(context, diagnostics);
           });
 
@@ -111,12 +112,14 @@ export function activate(context: vscode.ExtensionContext) {
             btDataComplianceTreeProvider.refresh();
             helpTreeProvider.refresh();
             btIssueTreeProvider.refresh();
+            subscribeToDocumentChanges(context, diagnostics);
           });
           vscode.workspace.onDidChangeConfiguration(async () => {
             btPlatformTreeProvider.refresh();
             btDataComplianceTreeProvider.refresh();
             helpTreeProvider.refresh();
             btIssueTreeProvider.refresh();
+            subscribeToDocumentChanges(context, diagnostics);
           });
 
           context.subscriptions.push(
@@ -126,6 +129,25 @@ export function activate(context: vscode.ExtensionContext) {
               {
                 providedCodeActionKinds:
                   BlinkCodeActionProvider.providedCodeActionKinds,
+              }
+            )
+          );
+
+          // Dashboard command register
+          context.subscriptions.push(
+            vscode.commands.registerCommand(
+              EXTENSION_ID + ".dashboard",
+              async () => {}
+            )
+          );
+
+          // Scan command register
+          context.subscriptions.push(
+            vscode.commands.registerCommand(
+              EXTENSION_ID + ".scan",
+              async () => {
+                btIssueTreeProvider.refresh();
+                subscribeToDocumentChanges(context, diagnostics);
               }
             )
           );
@@ -153,18 +175,6 @@ export function activate(context: vscode.ExtensionContext) {
       await vscode.commands.executeCommand(
         "workbench.view.extension.blinktrust"
       );
-    })
-  );
-
-  // Dashboard command register
-  context.subscriptions.push(
-    vscode.commands.registerCommand(EXTENSION_ID + ".dashboard", async () => {})
-  );
-
-  // Scan command register
-  context.subscriptions.push(
-    vscode.commands.registerCommand(EXTENSION_ID + ".scan", async () => {
-      btIssueTreeProvider.refresh();
     })
   );
 
