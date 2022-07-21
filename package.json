@@ -1,0 +1,226 @@
+{
+  "name": "blinktrust",
+  "displayName": "BlinkTrust AI Privacy Code Plugin",
+  "description": "Find and fix privacy issues in source code. World class scanner for the PII Data from BlinkTrustAI!",
+  "version": "1.1.0",
+  "icon": "https://avatars.githubusercontent.com/u/101024322?v=4",
+  "engines": {
+    "vscode": "^1.69.0"
+  },
+  "galleryBanner": {
+    "color": "#283e55",
+    "theme": "dark"
+  },
+  "categories": [
+    "Education",
+    "Testing",
+    "Debuggers",
+    "Other"
+  ],
+  "keywords": [
+    "PII",
+    "Data Security",
+    "Security",
+    "Angular",
+    "Code Quality",
+    "GDPR",
+    "JavaScript",
+    "TypeScript",
+    "HIPAA",
+    "CCPA",
+    "Code Analysis"
+  ],
+  "publisher": "blinktrust",
+  "activationEvents": [
+    "onCommand:blinktrust.authenticate",
+    "onCommand:blinktrust.refresh",
+    "onCommand:blinktrust.openPage",
+    "onCommand:blinktrust.scan",
+    "onCommand:blinktrust.dashboard",
+    "onView:blinktrust",
+    "*"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "blinktrust",
+          "title": "BlinkTrustAi",
+          "icon": "assets/images/blinktrust_logo.svg"
+        }
+      ]
+    },
+    "views": {
+      "blinktrust": [
+        {
+          "id": "blinktrust.welcome",
+          "name": "BlinkTrustAi",
+          "when": "!LOGGED_IN"
+        },
+        {
+          "id": "blinktrust.dataPrivacy",
+          "name": "Data Privacy Issues",
+          "contextualTitle": "BlinkTrustAi",
+          "when": "LOGGED_IN"
+        },
+        {
+          "id": "blinktrust.btPrivacyDataCompliance",
+          "name": "BT Data Privacy Compliance",
+          "contextualTitle": "BlinkTrustAi",
+          "when": "LOGGED_IN"
+        },
+        {
+          "id": "blinktrust.blinktrustPlatform",
+          "name": "BlinkTrustAi Platform",
+          "contextualTitle": "BlinkTrustAi",
+          "when": "LOGGED_IN"
+        },
+        {
+          "id": "blinktrust.helpAndFeedback",
+          "name": "Help & Feedback",
+          "contextualTitle": "BlinkTrustAi"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "blinktrust.welcome",
+        "contents": "Welcome to BlinkTrustAI Discovery for Visual Studio Code. 👋\nLet's start by connecting VS Code with BlinkTrustAI:\n[Connect VS Code with BlinkTrustAI](command:blinktrust.authenticate 'Connect with BlinkTrustAI')\n👉 BlinkTrustAI's mission is to finds data Security and breach fast. Connect with BlinkTrustAI to start your first analysis!",
+        "when": "!LOGGED_IN"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "blinktrust.scan",
+          "when": "view == blinktrust.dataPrivacy",
+          "group": "navigation",
+          "icon": "assets/images/refresh.svg"
+        },
+        {
+          "command": "blinktrust.dashboard",
+          "when": "view == blinktrust.dataPrivacy",
+          "group": "navigation",
+          "icon": "assets/images/dashboard.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "blinktrust.openPage",
+        "category": "BlinkTrustAi",
+        "title": "Open Page"
+      },
+      {
+        "command": "blinktrust.authenticate",
+        "category": "BlinkTrustAi",
+        "title": "Authenticate"
+      },
+      {
+        "command": "blinktrust.refresh",
+        "category": "BlinkTrustAi",
+        "title": "Refresh"
+      },
+      {
+        "command": "blinktrust.scan",
+        "category": "BlinkTrustAI",
+        "title": "Scan",
+        "icon": "assets/images/refresh.svg",
+        "shortTitle": "Scan"
+      },
+      {
+        "command": "blinktrust.dashboard",
+        "category": "BlinkTrustAI",
+        "title": "Dashboard",
+        "icon": "assets/images/dashboard.svg",
+        "shortTitle": "Dashboard"
+      }
+    ],
+    "configuration": {
+      "title": "BlinkTrustAi data scanner",
+      "properties": {
+        "blinktrust.token": {
+          "type": "string",
+          "default": "",
+          "description": "Authentication token",
+          "scope": "application"
+        },
+        "blinktrust.include": {
+          "type": "array",
+          "default": [
+            "**/*.js",
+            "**/*.jsx",
+            "**/*.ts",
+            "**/*.tsx",
+            "**/*.html",
+            "**/*.htm",
+            "**/*.php",
+            "**/*.vue",
+            "**/*.py",
+            "**/*.md",
+            "**/*.txt"
+          ]
+        },
+        "blinktrust.exclude": {
+          "type": "array",
+          "default": [
+            "**/node_modules/**",
+            "**/bower_components/**",
+            "**/dist/**",
+            "**/build/**",
+            "**/.vscode/**",
+            "**/.github/**",
+            "**/_output/**",
+            "**/*.min.*",
+            "**/*.map",
+            "**/.next/**",
+            "**/env/**",
+            "**/.idea/**",
+            "**/.git/**"
+          ]
+        },
+        "blinktrust.maxFilesForSearch": {
+          "type": "number",
+          "default": 5120,
+          "description": "Max files for searching"
+        }
+      }
+    }
+  },
+  "repository": {
+    "url": "https://github.com/blinktrustadmin/BTPlugin"
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.69.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@typescript-eslint/parser": "^5.30.0",
+    "@vscode/test-electron": "^2.1.5",
+    "eslint": "^8.18.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.7.4",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "iconv-lite": "^0.6.3"
+  }
+}
