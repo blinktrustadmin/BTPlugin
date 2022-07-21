@@ -9,8 +9,8 @@ import { BtPlatformTreeProvider } from "./treeview/bt.platform";
 import { TokenManager } from "./state/token.manager";
 import { authenticate } from "./auth/auth";
 import { BTIssueTreeProvider } from "./treeview/bt.issues";
-import { subscribeToDocumentChanges } from "./scanner/scanner";
-import { BlinkCodeActionProvider } from "./scanner/codeAction.privider";
+import { subscribeToDocumentChanges } from "./scanner/diagnostics.provider";
+import { BlinkCodeActionProvider } from "./scanner/codeAction.provider";
 
 export function activate(context: vscode.ExtensionContext) {
   // Global State defined
@@ -90,13 +90,20 @@ export function activate(context: vscode.ExtensionContext) {
             )
           );
 
+          const diagnostics =
+            vscode.languages.createDiagnosticCollection("blinktrust");
+          context.subscriptions.push(diagnostics);
+          subscribeToDocumentChanges(context, diagnostics);
+
           vscode.window.onDidChangeActiveTextEditor((e) => {
             if (e) {
               editor = e;
             }
           });
 
-          vscode.workspace.onDidChangeTextDocument(() => {});
+          vscode.workspace.onDidChangeTextDocument(() => {
+            subscribeToDocumentChanges(context, diagnostics);
+          });
 
           // Tree refresh here
           vscode.workspace.onDidSaveTextDocument(() => {
@@ -112,11 +119,6 @@ export function activate(context: vscode.ExtensionContext) {
             btIssueTreeProvider.refresh();
           });
 
-          const diagnostics =
-            vscode.languages.createDiagnosticCollection("blinktrust");
-          context.subscriptions.push(diagnostics);
-          subscribeToDocumentChanges(context, diagnostics);
-
           context.subscriptions.push(
             vscode.languages.registerCodeActionsProvider(
               "*",
@@ -127,7 +129,6 @@ export function activate(context: vscode.ExtensionContext) {
               }
             )
           );
-          
         } catch (e) {
           console.log(e);
         }
@@ -163,17 +164,7 @@ export function activate(context: vscode.ExtensionContext) {
   // Scan command register
   context.subscriptions.push(
     vscode.commands.registerCommand(EXTENSION_ID + ".scan", async () => {
-      const configurations = vscode.workspace.getConfiguration("blinktrust");
-
-      const includePatterns = getPath(configurations.get("include"));
-      const excludePatterns = getPath(configurations.get("exclude"));
-      const maxFileSearch = configurations.get("maxFilesForSearch", 5120);
-
-      const files = await vscode.workspace.findFiles(
-        includePatterns,
-        excludePatterns,
-        maxFileSearch
-      );
+      btIssueTreeProvider.refresh();
     })
   );
 

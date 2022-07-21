@@ -1,19 +1,12 @@
+import { TokenManager } from "./../state/token.manager";
 import * as vscode from "vscode";
 import { EventEmitter } from "vscode";
 import { EXTENSION_ID } from "../constants";
 import {
   accessRegulatoryAndReportsChildItems,
   btDataPrivacyComplianceTreeItems,
-  btDiscoveryChildItems,
-  btPlatformTreeItems,
-  btPrivacyApisChildItem,
-  btVaultChildItems,
 } from "../constants/treeview_strings";
-import {
-  btDataComplianceTreeViewUri,
-  btPlatformTreeViewUri,
-  helpTreeViewUri,
-} from "../constants/treeview_uri";
+import { btDataComplianceTreeViewUri } from "../constants/treeview_uri";
 
 export class BtDataComplianceTreeProvider
   implements vscode.TreeDataProvider<any>
@@ -34,12 +27,14 @@ export class BtDataComplianceTreeProvider
     element?: BtDataComplianceTreeItem
   ): Promise<BtDataComplianceTreeItem[]> {
     if (!element) {
-      return Promise.resolve(await this.getHelpTreeItemList());
+      return Promise.resolve(await this.getBtDataComplianceTreeItemList());
     }
     return Promise.resolve(element.children ?? []);
   }
 
-  private async getHelpTreeItemList(): Promise<BtDataComplianceTreeItem[]> {
+  private async getBtDataComplianceTreeItemList(): Promise<
+    BtDataComplianceTreeItem[]
+  > {
     const parent: BtDataComplianceTreeItem[] = [];
 
     parent.push(
@@ -49,17 +44,23 @@ export class BtDataComplianceTreeProvider
           new BtDataComplianceTreeItem(
             accessRegulatoryAndReportsChildItems.gDPR,
             undefined,
-            btDataComplianceTreeViewUri.gDPR
+            vscode.Uri.parse(
+              `${btDataComplianceTreeViewUri.gDPR}${TokenManager.getToken()}`
+            )
           ),
           new BtDataComplianceTreeItem(
             accessRegulatoryAndReportsChildItems.cCPA,
             undefined,
-            btDataComplianceTreeViewUri.cCPA
+            vscode.Uri.parse(
+              `${btDataComplianceTreeViewUri.cCPA}${TokenManager.getToken()}`
+            )
           ),
           new BtDataComplianceTreeItem(
             accessRegulatoryAndReportsChildItems.india,
             undefined,
-            btDataComplianceTreeViewUri.india
+            vscode.Uri.parse(
+              `${btDataComplianceTreeViewUri.india}${TokenManager.getToken()}`
+            )
           ),
         ],
         undefined

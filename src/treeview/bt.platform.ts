@@ -7,7 +7,8 @@ import {
   btPrivacyApisChildItem,
   btVaultChildItems,
 } from "../constants/treeview_strings";
-import { btPlatformTreeViewUri, helpTreeViewUri } from "../constants/treeview_uri";
+import { btPlatformTreeViewUri } from "../constants/treeview_uri";
+import { TokenManager } from "../state/token.manager";
 
 export class BtPlatformTreeProvider implements vscode.TreeDataProvider<any> {
   private _onDidChangeTreeData = new EventEmitter<
@@ -26,12 +27,12 @@ export class BtPlatformTreeProvider implements vscode.TreeDataProvider<any> {
     element?: BtPlatformTreeItem
   ): Promise<BtPlatformTreeItem[]> {
     if (!element) {
-      return Promise.resolve(await this.getHelpTreeItemList());
+      return Promise.resolve(await this.getBtPlatformTreeItemList());
     }
     return Promise.resolve(element.children ?? []);
   }
 
-  private async getHelpTreeItemList(): Promise<BtPlatformTreeItem[]> {
+  private async getBtPlatformTreeItemList(): Promise<BtPlatformTreeItem[]> {
     const parent: BtPlatformTreeItem[] = [];
 
     parent.push(
@@ -41,7 +42,7 @@ export class BtPlatformTreeProvider implements vscode.TreeDataProvider<any> {
           new BtPlatformTreeItem(
             btDiscoveryChildItems.discoverPiiData,
             undefined,
-            btPlatformTreeViewUri.discoverPiiData
+            vscode.Uri.parse(`${btPlatformTreeViewUri.discoverPiiData}${TokenManager.getToken()}`)
           ),
         ],
         undefined
@@ -55,7 +56,7 @@ export class BtPlatformTreeProvider implements vscode.TreeDataProvider<any> {
           new BtPlatformTreeItem(
             btPrivacyApisChildItem.useOurApi,
             undefined,
-            btPlatformTreeViewUri.useOurApi
+            vscode.Uri.parse(`${btPlatformTreeViewUri.useOurApi}${TokenManager.getToken()}`)
           ),
         ],
         undefined
@@ -69,7 +70,7 @@ export class BtPlatformTreeProvider implements vscode.TreeDataProvider<any> {
           new BtPlatformTreeItem(
             btVaultChildItems.offloadSensitiveData,
             undefined,
-            btPlatformTreeViewUri.offloadSensitiveData
+            vscode.Uri.parse(`${btPlatformTreeViewUri.offloadSensitiveData}${TokenManager.getToken()}`)
           ),
         ],
         undefined

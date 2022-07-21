@@ -1,4 +1,4 @@
-import { REGEX_REASON } from "./../regex/regex.reason";
+import { REGEX_REASON } from "../regex/regex.reason";
 import {
   Diagnostic,
   DiagnosticCollection,

@@ -30,8 +30,7 @@ export class TokenManager {
 
   static get version() {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { version } = require(path.join('../../../..', 'package.json'));
+    const { version } = require(path.join("../../../..", "package.json"));
     return version;
- }
-
+  }
 }
