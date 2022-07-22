@@ -48,6 +48,7 @@ export const REGEX_ICON: any = Object.seal({
   californiaAddress: "home",
   ukAddress: "home",
   address: "home",
+  indianMobile: "phone"
 });
 
 export const REGEX_ICON_KEYS = Object.keys(REGEX_ICON);

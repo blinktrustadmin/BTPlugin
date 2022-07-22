@@ -125,7 +125,33 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
 
               // Check for Indian mobile number
               if (element.length >= 10 && element.length <= 14) {
-                if (regexKey === "indiaMobile") {
+                if (regexKey === "indianMobile") {
+                  if (testingRegex.test(element)) {
+                    localChild.push(
+                      new BTIssueTreeProviderItem(
+                        reason,
+                        undefined,
+                        docUri,
+                        lineIndex,
+                        level
+                      )
+                    );
+                    localParent.push(
+                      new BTIssueTreeProviderItem(
+                        element,
+                        localChild,
+                        docUri,
+                        lineIndex,
+                        severityIcon,
+                        message
+                      )
+                    );
+                    found = true;
+                  }
+                }
+              } else if (element.length === 12) {
+                // France Id Regex
+                if (regexKey === "nationalIdFrance") {
                   if (testingRegex.test(element)) {
                     localChild.push(
                       new BTIssueTreeProviderItem(
@@ -150,31 +176,37 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
                   }
                 }
               } else if (element.length >= 10 && element.length <= 14) {
-                // Check for US mobile number
-              } else if (element.length >= 10 && element.length <= 14) {
                 // Check for UK phone number
               } else {
-                if (testingRegex.test(element)) {
-                  localChild.push(
-                    new BTIssueTreeProviderItem(
-                      reason,
-                      undefined,
-                      docUri,
-                      lineIndex,
-                      level
-                    )
-                  );
-                  localParent.push(
-                    new BTIssueTreeProviderItem(
-                      element,
-                      localChild,
-                      docUri,
-                      lineIndex,
-                      severityIcon,
-                      message
-                    )
-                  );
-                  found = true;
+                if (
+                  regexKey !== "nationalIdFrance" &&
+                  regexKey !== "indianMobile" &&
+                  regexKey !== "address" &&
+                  regexKey !== "ukAddress" &&
+                  regexKey !== "usAddress"
+                ) {
+                  if (testingRegex.test(element)) {
+                    localChild.push(
+                      new BTIssueTreeProviderItem(
+                        reason,
+                        undefined,
+                        docUri,
+                        lineIndex,
+                        level
+                      )
+                    );
+                    localParent.push(
+                      new BTIssueTreeProviderItem(
+                        element,
+                        localChild,
+                        docUri,
+                        lineIndex,
+                        severityIcon,
+                        message
+                      )
+                    );
+                    found = true;
+                  }
                 }
               }
             });

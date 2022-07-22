@@ -84,7 +84,22 @@ export const diagnosticScanner = async (
 
           // Check for Indian mobile number
           if (element.length >= 10 && element.length <= 14) {
-            if (regexKey === "indiaMobile") {
+            if (regexKey === "indianMobile") {
+              if (testingRegex.test(element)) {
+                diagnosticContent = new DiagnosticsContent(
+                  message,
+                  lineIndex,
+                  level,
+                  element,
+                  reason,
+                  regexKey
+                );
+                found = true;
+              }
+            }
+          } else if (element.length === 12) {
+            // France Id Regex
+            if (regexKey === "nationalIdFrance") {
               if (testingRegex.test(element)) {
                 diagnosticContent = new DiagnosticsContent(
                   message,
@@ -98,20 +113,26 @@ export const diagnosticScanner = async (
               }
             }
           } else if (element.length >= 10 && element.length <= 14) {
-            // Check for US mobile number
-          } else if (element.length >= 10 && element.length <= 14) {
             // Check for UK phone number
           } else {
-            if (testingRegex.test(element)) {
-              diagnosticContent = new DiagnosticsContent(
-                message,
-                lineIndex,
-                level,
-                element,
-                reason,
-                regexKey
-              );
-              found = true;
+            if (
+              regexKey !== "nationalIdFrance" &&
+              regexKey !== "indianMobile" &&
+              regexKey !== "address" &&
+              regexKey !== "ukAddress" &&
+              regexKey !== "usAddress"
+            ) {
+              if (testingRegex.test(element)) {
+                diagnosticContent = new DiagnosticsContent(
+                  message,
+                  lineIndex,
+                  level,
+                  element,
+                  reason,
+                  regexKey
+                );
+                found = true;
+              }
             }
           }
         });
