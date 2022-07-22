@@ -1,4 +1,3 @@
-import { REGEX_REASON } from "../regex/regex.reason";
 import {
   Diagnostic,
   DiagnosticCollection,
@@ -10,96 +9,19 @@ import {
   window,
   workspace,
 } from "vscode";
-import { REGEX_SET, REGEX_SET_KEYS } from "../regex/regex";
-import { REGEX_MESSAGE } from "../regex/regex.message";
-import { REGEX_LEVEL } from "../regex/regex.level";
+import { diagnosticScanner } from "./diagnostic.scanner";
 
 export const refreshDiagnostics = (
   doc: TextDocument,
   diagnosticsCollection: DiagnosticCollection
 ): void => {
-  const diagnostics: Diagnostic[] = [];
-
-  for (let lineIndex = 0; lineIndex < doc.lineCount; lineIndex++) {
-    const lineOfText = doc.lineAt(lineIndex);
-
-    let text = lineOfText.text
-      .replace(/<[^>]+>g/, "")
-      .replace(/=/g, " ")
-      .replace(/"/g, "")
-      .replace(/;/g, "");
-    text = text.trim();
-    if (text === "") {
-      continue;
-    }
-
-    const strToTest = text.replace(".", "");
-
-    for (let i = 0; i < REGEX_SET_KEYS.length; i++) {
-      let childDiagnostics: any;
-
-      let key = REGEX_SET_KEYS[i];
-      var regex = REGEX_SET[key];
-
-      if (regex.test(strToTest)) {
-        if (text !== "") {
-          var message = REGEX_MESSAGE[key];
-          var error = REGEX_REASON[key];
-          var errorLevel = REGEX_LEVEL[key];
-          var result = regex.exec(text);
-          var temp = "";
-          if (result !== null) {
-            temp =
-              result !== undefined && result.length ? result[0] : undefined;
-          } else {
-            temp = text;
-          }
-          childDiagnostics = new DiagnosticsContent(
-            message,
-            lineIndex,
-            errorLevel.toLowerCase(),
-            temp,
-            error,
-            key
-          );
-          console.log('CHild Diag IF ++', childDiagnostics);
-        }
-      } else {
-        var words = text.split(" ");
-        words.forEach((element: any) => {
-          if (regex.test(element)) {
-            var message = REGEX_MESSAGE[key];
-            var error = REGEX_REASON[key];
-            var errorLevel = REGEX_LEVEL[key];
-            childDiagnostics = new DiagnosticsContent(
-              message,
-              lineIndex,
-              errorLevel.toLowerCase(),
-              element,
-              error,
-              key
-            );
-            console.log('CHild Diag', childDiagnostics);
-          }
-        });
-      }
-
-      if (childDiagnostics === undefined) {
-        continue;
-      }
-
-      let diagnostic: Diagnostic = createDiagnostic(
-        lineOfText,
-        childDiagnostics,
-        lineIndex
-      );
-
-      if (diagnostic !== undefined) {
-        diagnostics.push(diagnostic);
-      }
-    }
-  }
-  diagnosticsCollection.set(doc.uri, diagnostics);
+  const diagnostics = diagnosticScanner(doc);
+  diagnostics
+    .then((data) => {
+      console.log("All Diagnostic data", data);
+      diagnosticsCollection.set(doc.uri, data);
+    })
+    .catch((err) => console.log(err));
 };
 
 export const createDiagnostic = (
@@ -110,9 +32,13 @@ export const createDiagnostic = (
   if (child !== undefined && child.lineContent === undefined) {
     return undefined;
   }
+  let index = lineOfText.text.indexOf(child.lineContent);
 
-  const index = lineOfText.text.indexOf(child.lineContent);
+  if (index === -1) {
+    index = 0;
+  }
 
+ 
   // create range that represents, where in the document the word is
   const range = new Range(
     lineIndex,

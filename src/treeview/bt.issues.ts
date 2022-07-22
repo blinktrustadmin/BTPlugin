@@ -6,6 +6,7 @@ import { REGEX_SET, REGEX_SET_KEYS } from "../regex/regex";
 import { REGEX_MESSAGE } from "../regex/regex.message";
 import { REGEX_REASON } from "../regex/regex.reason";
 import { REGEX_SEVERITY_ICON } from "../regex/regex.severity.icon";
+import { fileScanner } from "../scanner/scanner";
 
 export class BTIssueTreeProvider implements vscode.TreeDataProvider<any> {
   private _onDidChangeTreeData = new EventEmitter<
@@ -32,160 +33,21 @@ export class BTIssueTreeProvider implements vscode.TreeDataProvider<any> {
   private async getBTIssueTreeProviderItemList(): Promise<
     BTIssueTreeProviderItem[]
   > {
-    const arr1: BTIssueTreeProviderItem[] = [];
-    let totalError = 0;
+    let parent: BTIssueTreeProviderItem[] = [];
 
-    const configurations = vscode.workspace.getConfiguration("blinktrust");
+    const { totalErrors, returningParent } = await fileScanner();
 
-    const includePatterns = getPath(configurations.get("include"));
-    const excludePatterns = getPath(configurations.get("exclude"));
-    const maxFileSearch = configurations.get("maxFilesForSearch", 5120);
-
-    const files = await vscode.workspace.findFiles(
-      includePatterns,
-      excludePatterns,
-      maxFileSearch
-    );
-
-    if (files.length) {
-      for (let i = 0; i < files.length; i++) {
-        const arr2: BTIssueTreeProviderItem[] = [];
-        const file = files[i];
-        const doc = await vscode.workspace.openTextDocument(file);
-        const docUri = doc.uri;
-        const fileName =
-          doc.fileName.replace(/\\/g, "/").split("/").pop() ?? "unknown";
-        let k = 1;
-
-        for (let j = 0; j < doc.lineCount; j++) {
-          var text = doc.lineAt(j).text;
-          if (doc.fileName.endsWith("html")) {
-            text = text
-              .replace(/<[^>]+>/g, "")
-              .replace(/=/g, " ")
-              .replace(/"/g, "")
-              .replace(/;/g, "");
-          }
-          text = text.trim();
-          if (text === "") {
-            continue;
-          }
-
-          const strToTest = text.replace(".", "");
-
-          // Quick Fix Breaks for file
-          if (text.split('@').pop() === "bt-ignore for this file") {
-            j = doc.lineCount;
-            break;
-          }
-
-          let key: string;
-          for (let i = 0; i < REGEX_SET_KEYS.length; i++) {
-            key = REGEX_SET_KEYS[i];
-            var REGEX_NEW = REGEX_SET[key];
-            var found = false;
-
-            if (
-              key === "PROPERTY_UNIT_NUMBER" ||
-              key === "PROPERTY_STREET_ADDRESS" ||
-              key === "PROPERTY_ADDRESS" ||
-              key === "POSTAL_CODE_US" ||
-              key === "POSTAL_CODE_UK"
-            ) {
-              if (REGEX_NEW.test(strToTest)) {
-                var message = REGEX_MESSAGE[key];
-                var toDoError = REGEX_REASON[key];
-                var childToDo: BTIssueTreeProviderItem[] = [];
-                var m = REGEX_NEW.exec(text);
-                var s = "";
-                if (m !== null) {
-                  s = m !== undefined && m.length ? m[0] : undefined;
-                } else {
-                  s = text;
-                }
-
-                childToDo.push(
-                  new BTIssueTreeProviderItem(
-                    `${toDoError}`,
-                    undefined,
-                    docUri,
-                    j,
-                    "warning"
-                  )
-                );
-                arr2.push(
-                  new BTIssueTreeProviderItem(
-                    `${s}`,
-                    childToDo,
-                    docUri,
-                    j,
-                    REGEX_SEVERITY_ICON[key].toLocaleLowerCase(),
-                    message
-                  )
-                );
-                found = true;
-              }
-            } else {
-              var words = text.split(" ");
-              words.forEach((element) => {
-                if (REGEX_NEW.test(element)) {
-                  //const todoText = text.slice(text.indexOf(element) + element.length + 1, text.length);
-                  if (element) {
-                    if (key === "PHONE" && element.length > 12) {
-                      console.log("Phone Number", key);
-                    } else {
-                      var message = REGEX_MESSAGE[key];
-                      var toDoError = REGEX_REASON[key];
-                      var childToDo: BTIssueTreeProviderItem[] = [];
-
-                      childToDo.push(
-                        new BTIssueTreeProviderItem(
-                          `${toDoError}`,
-                          undefined,
-                          docUri,
-                          j,
-                          "warning"
-                        )
-                      );
-
-                      arr2.push(
-                        new BTIssueTreeProviderItem(
-                          `${element}`,
-                          childToDo,
-                          docUri,
-                          j,
-                          REGEX_SEVERITY_ICON[key].toLocaleLowerCase(),
-                          message
-                        )
-                      );
-                      k++;
-                      found = true;
-                    }
-                  }
-                }
-              });
-            }
-            if (found) {
-              break;
-            }
-          }
-        }
-
-        if (arr2.length) {
-          arr1.push(new BTIssueTreeProviderItem(fileName, arr2, docUri));
-          totalError += arr2.length - 1;
-        }
-      }
-    }
-
-    if (totalError > 0) {
-      let fileNameMsg =
-        totalError === 1
-          ? "BlinkTrust AI found only 1 data security issue!⚠️"
-          : "BlinkTrust AI found " + totalError + " data security issues!⚠️";
-      arr1.push(new BTIssueTreeProviderItem(fileNameMsg, undefined, undefined));
+    if (totalErrors > 0) {
+      parent.push(
+        new BTIssueTreeProviderItem(
+          "BlinkTrust AI found " + totalErrors + " data security issues!⚠️",
+          returningParent,
+          undefined,
+          undefined
+        )
+      );
     } else {
-      arr1.push(
+      parent.push(
         new BTIssueTreeProviderItem(
           "BlinkTrust AI found no data security issue!✅",
           undefined,
@@ -194,7 +56,7 @@ export class BTIssueTreeProvider implements vscode.TreeDataProvider<any> {
       );
     }
 
-    return arr1.sort(({ label: label1 }, { label: label2 }) => {
+    return parent.sort(({ label: label1 }, { label: label2 }) => {
       const l1 = label1.toLowerCase();
       const l2 = label2.toLowerCase();
 
@@ -215,7 +77,7 @@ export class BTIssueTreeProvider implements vscode.TreeDataProvider<any> {
   }
 }
 
-class BTIssueTreeProviderItem extends vscode.TreeItem {
+export class BTIssueTreeProviderItem extends vscode.TreeItem {
   label: string = "";
   children?: BTIssueTreeProviderItem[] | undefined;
 

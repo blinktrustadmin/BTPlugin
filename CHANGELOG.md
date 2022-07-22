@@ -13,3 +13,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Major enhancement in UI.
 - Bug Fixes
 - PII engine revamp
+
+## [Released - v1.1.1]
+
+- PII enhancements

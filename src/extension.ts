@@ -1,3 +1,4 @@
+import { fileScanner } from "./scanner/scanner";
 import { getPath } from "./scanner/utils";
 import { loggedIn } from "./state/state.keys";
 import { BtDataComplianceTreeProvider } from "./treeview/bt.dataCompliance";
@@ -98,7 +99,6 @@ export function activate(context: vscode.ExtensionContext) {
           vscode.window.onDidChangeActiveTextEditor((e) => {
             if (e) {
               editor = e;
-              subscribeToDocumentChanges(context, diagnostics);
             }
           });
 
@@ -132,25 +132,6 @@ export function activate(context: vscode.ExtensionContext) {
               }
             )
           );
-
-          // Dashboard command register
-          context.subscriptions.push(
-            vscode.commands.registerCommand(
-              EXTENSION_ID + ".dashboard",
-              async () => {}
-            )
-          );
-
-          // Scan command register
-          context.subscriptions.push(
-            vscode.commands.registerCommand(
-              EXTENSION_ID + ".scan",
-              async () => {
-                btIssueTreeProvider.refresh();
-                subscribeToDocumentChanges(context, diagnostics);
-              }
-            )
-          );
         } catch (e) {
           console.log(e);
         }
@@ -166,6 +147,28 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.env.openExternal(path);
       }
     )
+  );
+
+  // Dashboard command register
+  context.subscriptions.push(
+    vscode.commands.registerCommand(EXTENSION_ID + ".dashboard", async () => {
+      vscode.commands.executeCommand(
+        "vscode.open",
+        vscode.Uri.parse(
+          `https://www.blinktrust.com/integration?t=${TokenManager.getToken()}`
+        )
+      );
+    })
+  );
+
+  // Scan command register
+  context.subscriptions.push(
+    vscode.commands.registerCommand(EXTENSION_ID + ".scan", async () => {
+      const { returningParent, totalErrors } = await fileScanner();
+      console.log('Console log from extension.ts');
+      console.log(returningParent);
+      console.log(totalErrors);
+    })
   );
 
   // Refresh views

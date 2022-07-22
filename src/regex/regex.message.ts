@@ -38,6 +38,7 @@ export const REGEX_MESSAGE: any = Object.seal({
   twillioApiKey: "Contains twillio api key",
   twitterAccessToken: "Contains twitter access token",
   twitterOath: "Contains twitter Oath token",
+  
   license: "Contains license number",
   francePhone: "Contains france phone number",
   germanPhone: "Contains German phone number",
@@ -45,8 +46,6 @@ export const REGEX_MESSAGE: any = Object.seal({
   usPhone: "Contains US phone number",
   usStreetAddress: "Contains US street address",
   ibanCode: "Contains IBAN code",
-
-
   passportCanada: "Contains Canadian Passport number",
   nationalIdFrance: "Contains France national id",
   driverLicenseFrance: "Contains Driver's license france",
@@ -55,6 +54,9 @@ export const REGEX_MESSAGE: any = Object.seal({
   ukPassport: "Contains UK passport number",
   nhsUk: "Contains NHS UK",
   ssnUs: "Contains SSN US",
+  californiaAddress: "Contains california address",
+  ukAddress: "Contains UK address",
+  address: "Contains address",
 });
 
 export const REGEX_MESSAGE_KEYS = Object.keys(REGEX_MESSAGE);

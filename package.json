@@ -2,7 +2,7 @@
   "name": "blinktrust",
   "displayName": "BlinkTrust AI Privacy Code Plugin",
   "description": "Find and fix privacy issues in source code. World class scanner for the PII Data from BlinkTrustAI!",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "icon": "assets/images/blinktrust_logo.png",
   "engines": {
     "vscode": "^1.69.0"

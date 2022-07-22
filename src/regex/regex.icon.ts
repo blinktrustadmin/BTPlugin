@@ -44,16 +44,10 @@ export const REGEX_ICON: any = Object.seal({
   ukPhone: "key",
   usPhone: "key",
   usStreetAddress: "key",
-  ibanCode: "key",
-
-  passportCanada: "key",
-  nationalIdFrance: "key",
-  driverLicenseFrance: "key",
-  germanyPassport: "key",
-  germanyLicense: "key",
-  ukPassport: "key",
-  nhsUk: "key",
   ssnUs: "key",
+  californiaAddress: "home",
+  ukAddress: "home",
+  address: "home",
 });
 
 export const REGEX_ICON_KEYS = Object.keys(REGEX_ICON);
