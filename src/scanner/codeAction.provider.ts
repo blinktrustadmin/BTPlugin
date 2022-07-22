@@ -131,7 +131,7 @@ export class BlinkCodeActionProvider implements CodeActionProvider {
       fix.edit = new WorkspaceEdit();
       let editText = Delimiter.getDelimiter(document.languageId).replace(
         "text",
-        "@bt-ignore for this line\r\n"
+        "@bt-ignore for this file\r\n"
       );
       let newRange: Range = new Range(0, 0, range.start.line, editText.length);
       fix.edit.insert(document.uri, newRange.start, editText);

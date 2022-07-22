@@ -164,10 +164,7 @@ export function activate(context: vscode.ExtensionContext) {
   // Scan command register
   context.subscriptions.push(
     vscode.commands.registerCommand(EXTENSION_ID + ".scan", async () => {
-      const { returningParent, totalErrors } = await fileScanner();
-      console.log('Console log from extension.ts');
-      console.log(returningParent);
-      console.log(totalErrors);
+      btIssueTreeProvider.refresh();
     })
   );
 

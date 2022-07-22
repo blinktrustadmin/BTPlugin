@@ -31,13 +31,19 @@ export const diagnosticScanner = async (
       continue;
     }
 
+    // Check for file ignore
+    if (text.split("@bt-ignore").pop() === " for this file") {
+      lineIndex = doc.lineCount;
+      continue;
+    }
+
     // Otherwise check the regex patterns
     const textString = text.replace(".", "");
 
     // Traverse through all regex
     for (let regexIndex = 0; regexIndex < REGEX_SET_KEYS.length; regexIndex++) {
       let regexKey = REGEX_SET_KEYS[regexIndex];
-      let testingRegex = new RegExp(REGEX_SET[regexKey], "gi");
+      let testingRegex = new RegExp(REGEX_SET[regexKey], "i");
 
       var diagnosticContent: any;
 

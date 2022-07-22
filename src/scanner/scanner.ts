@@ -34,8 +34,6 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
       const docUri = doc.uri;
       const fileName =
         doc.fileName.replace(/\\/g, "/").split("/").pop() ?? "unknown";
-
-      console.log(fileName);
       // Fetch file content line by line
       for (let lineIndex = 0; lineIndex < doc.lineCount; lineIndex++) {
         // Captures child for this file
@@ -57,6 +55,16 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
           continue;
         }
 
+        // Check for file ignore
+        if (text.split("@bt-ignore").pop() === " for this file") {
+          const index = returningParent.findIndex((e) => e.label === fileName);
+          if (index >= 0) {
+            returningParent.splice(index, 1);
+          }
+          lineIndex = doc.lineCount;
+          continue;
+        }
+
         // Otherwise check the regex patterns
         const textString = text.replace(".", "");
 
@@ -67,7 +75,7 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
           regexIndex++
         ) {
           let regexKey = REGEX_SET_KEYS[regexIndex];
-          let testingRegex = new RegExp(REGEX_SET[regexKey], "gi");
+          let testingRegex = new RegExp(REGEX_SET[regexKey], "i");
           var found: boolean = false;
 
           //   Long string check will be on addresses

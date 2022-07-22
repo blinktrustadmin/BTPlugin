@@ -1,3 +1,4 @@
+import { TokenManager } from './../state/token.manager';
 import * as vscode from "vscode";
 import { EventEmitter } from "vscode";
 import { EXTENSION_ID } from "../constants";
@@ -34,21 +35,21 @@ export class BtHelpTreeProvider implements vscode.TreeDataProvider<any> {
       new HelpTreeItem(
         helpAndFeedbackTreeItems.helpBlinkTrustAi,
         undefined,
-        undefined
+        vscode.Uri.parse(`${helpTreeViewUri.shareFeedback}`)
       )
     );
     parent.push(
       new HelpTreeItem(
         helpAndFeedbackTreeItems.sendYourFeedback,
         undefined,
-        undefined
+        vscode.Uri.parse(`${helpTreeViewUri.shareFeedback}`)
       )
     );
     parent.push(
       new HelpTreeItem(
         helpAndFeedbackTreeItems.shareYourExperience,
         undefined,
-        undefined
+        vscode.Uri.parse(`${helpTreeViewUri.shareFeedback}`)
       )
     );
 
