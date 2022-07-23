@@ -2,7 +2,7 @@ export const helpTreeViewUri: any = {
   installPlugin: `https://github.com/blinktrustadmin/BTPlugin#install-the-extension`,
   uninstallPlugin: `https://github.com/blinktrustadmin/BTPlugin#uninstall-the-extension`,
   howToScan: `https://github.com/blinktrustadmin/BTPlugin#run-analysis`,
-  shareFeedback: `https://www.blinktrust.com/feedback`,
+  shareFeedback: `https://www.blinktrust.com/feedback?t=`,
 };
 
 export const btPlatformTreeViewUri: any = {

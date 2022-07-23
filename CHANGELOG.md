@@ -21,3 +21,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Released - v1.1.2]
 
 - PII enhancements
+
+## [Released - v1.1.3]
+
+- PII enhancements
+
+## [Released - v1.1.4]
+
+- Feedback section added

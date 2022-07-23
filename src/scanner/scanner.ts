@@ -134,6 +134,7 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
               // Check for Indian mobile number
               if (element.length >= 10 && element.length <= 14) {
                 if (regexKey === "indianMobile") {
+                  
                   if (testingRegex.test(element)) {
                     localChild.push(
                       new BTIssueTreeProviderItem(

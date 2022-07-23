@@ -35,21 +35,21 @@ export class BtHelpTreeProvider implements vscode.TreeDataProvider<any> {
       new HelpTreeItem(
         helpAndFeedbackTreeItems.helpBlinkTrustAi,
         undefined,
-        vscode.Uri.parse(`${helpTreeViewUri.shareFeedback}`)
+        vscode.Uri.parse(`${helpTreeViewUri.shareFeedback}${TokenManager.getToken()}`)
       )
     );
     parent.push(
       new HelpTreeItem(
         helpAndFeedbackTreeItems.sendYourFeedback,
         undefined,
-        vscode.Uri.parse(`${helpTreeViewUri.shareFeedback}`)
+        vscode.Uri.parse(`${helpTreeViewUri.shareFeedback}${TokenManager.getToken()}`)
       )
     );
     parent.push(
       new HelpTreeItem(
         helpAndFeedbackTreeItems.shareYourExperience,
         undefined,
-        vscode.Uri.parse(`${helpTreeViewUri.shareFeedback}`)
+        vscode.Uri.parse(`${helpTreeViewUri.shareFeedback}${TokenManager.getToken()}`)
       )
     );
 
