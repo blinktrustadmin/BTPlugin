@@ -120,7 +120,22 @@ export const diagnosticScanner = async (
             }
           } else if (element.length >= 10 && element.length <= 14) {
             // Check for UK phone number
-          } else {
+          } else if (element.length === 16) {
+            if (regexKey === "ukDriverLicense") {
+              if (testingRegex.test(element)) {
+                diagnosticContent = new DiagnosticsContent(
+                  message,
+                  lineIndex,
+                  level,
+                  element,
+                  reason,
+                  regexKey
+                );
+                found = true;
+              }
+            }
+          }
+          else {
             if (
               regexKey !== "nationalIdFrance" &&
               regexKey !== "indianMobile" &&

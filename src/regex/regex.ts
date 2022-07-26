@@ -69,7 +69,11 @@ export const REGEX_SET: any = Object.seal({
     /^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/,
   address:
     /^(\\d{1,}) [a-zA-Z0-9\\s]+(\\,)? [a-zA-Z]+(\\,)? [A-Z]{2} [0-9]{5,6}$/,
+    // /^([0-9]{1,5}\w+[\s]{0,1})([A-Z\s0-9\-,&#\n]*[0-9]{20})/,
   indianMobile: /^((\+91)?|91)?[789][0-9]{9}/,
+  ukDriverLicense: /[A-Z0-9]{5}\d[0156]\d([0][1-9]|[12]\d|3[01])\d[A-Z0-9]{3}[A-Z]{2}/
+  //ukNationalInsuranceNumber: /^([ACEHJLMOPRSW-Yacehjlmoprsw-y][A-CEGHJ-NPRSTW-Za-ceghj-nprstw-z]|[Bb][A-CEHJ-NPRSTW-Za-cehj-nprstw-z]|[Gg][ACEGHJ-NPRSTW-Zaceghj-nprstw-z]|[Kk][A-CEGHJ-MPRSTW-Za-ceghj-mprstw-z]|[Nn][A-CEGHJLMNPRSW-Za-ceghjlmnprsw-z]|[Tt][A-CEGHJ-MPRSTW-Za-ceghj-mprstw-z]|[Zz][A-CEGHJ-NPRSTW-Ya-ceghj-nprstw-y])[0-9]{6}[A-Da-d ]?$/,
+
 });
 
 export const REGEX_SET_KEYS = Object.keys(REGEX_SET);

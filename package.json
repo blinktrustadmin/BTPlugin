@@ -159,7 +159,9 @@
             "**/*.vue",
             "**/*.py",
             "**/*.md",
-            "**/*.txt"
+            "**/*.txt",
+            "**/*.csv",
+            "**/*.java"
           ]
         },
         "blinktrust.exclude": {

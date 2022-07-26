@@ -134,7 +134,7 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
               // Check for Indian mobile number
               if (element.length >= 10 && element.length <= 14) {
                 if (regexKey === "indianMobile") {
-                  
+
                   if (testingRegex.test(element)) {
                     localChild.push(
                       new BTIssueTreeProviderItem(
@@ -186,6 +186,32 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
                 }
               } else if (element.length >= 10 && element.length <= 14) {
                 // Check for UK phone number
+              } else if (element.length === 16) {
+                if (regexKey === "ukDriverLicense") {
+                  if (testingRegex.test(element)) {
+                    localChild.push(
+                      new BTIssueTreeProviderItem(
+                        reason,
+                        undefined,
+                        docUri,
+                        lineIndex,
+                        level
+                      )
+                    );
+                    localParent.push(
+                      new BTIssueTreeProviderItem(
+                        element,
+                        localChild,
+                        docUri,
+                        lineIndex,
+                        severityIcon,
+                        message
+                      )
+                    );
+                    found = true;
+                  }
+                }
+
               } else {
                 if (
                   regexKey !== "nationalIdFrance" &&
