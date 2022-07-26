@@ -32,6 +32,7 @@ export const authenticate = (fn: () => void) => {
 
   server = app.listen(app.get("port"), function () {
     TokenManager.setAuthenticated(true);
+
     vscode.commands.executeCommand(
       "vscode.open",
       vscode.Uri.parse(`${apiBaseUrl}/auth/github`)
