@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { Server } from "http";
-import { apiBaseUrl } from "../constants";
+import { apiBaseUrl, authUrl } from "../constants";
 import { TokenManager } from "../state/token.manager";
 import * as express from "express";
 
@@ -35,7 +35,7 @@ export const authenticate = (fn: () => void) => {
 
     vscode.commands.executeCommand(
       "vscode.open",
-      vscode.Uri.parse(`${apiBaseUrl}/auth/github`)
+      vscode.Uri.parse(`${authUrl}`)
     );
   });
 };
