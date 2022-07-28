@@ -49,7 +49,8 @@ export const REGEX_ICON: any = Object.seal({
   ukAddress: "home",
   address: "home",
   indianMobile: "phone",
-  ukDriverLicense: "key"
+  ukDriverLicense: "key",
+  ukNationalInsuranceNumber: "key"
 });
 
 export const REGEX_ICON_KEYS = Object.keys(REGEX_ICON);

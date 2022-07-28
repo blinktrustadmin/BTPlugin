@@ -59,7 +59,8 @@ export const REGEX_REASON: any = Object.seal({
   ukAddress: "UK address",
   address: "Address",
   indianMobile: "Indian mobile",
-  ukDriverLicense: "Driver's license UK"
+  ukDriverLicense: "Driver's license UK",
+  ukNationalInsuranceNumber: "National Insurance Number UK"
 });
 
 export const REGEX_REASON_KEYS = Object.keys(REGEX_REASON);

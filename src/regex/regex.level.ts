@@ -58,7 +58,8 @@ export const REGEX_LEVEL: any = Object.seal({
   ukAddress: "warning",
   address: "warning",
   indianMobile: "warning",
-  ukDriverLicense: "warning"
+  ukDriverLicense: "warning",
+  ukNationalInsuranceNumber: "warning"
 });
 
 export const REGEX_LEVEL_KEYS = Object.keys(REGEX_LEVEL);

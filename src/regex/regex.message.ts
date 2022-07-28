@@ -59,6 +59,7 @@ export const REGEX_MESSAGE: any = Object.seal({
   address: "Contains address",
   indianMobile: "Contains indian mobile",
   ukDriverLicense: "Contains Driver's license UK",
+  ukNationalInsuranceNumber: "Contains UK National Insurance Number"
 });
 
 export const REGEX_MESSAGE_KEYS = Object.keys(REGEX_MESSAGE);
