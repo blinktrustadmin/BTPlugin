@@ -157,7 +157,8 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
                     found = true;
                   }
                 }
-              } else if (element.length === 12) {
+              }
+              if (element.length === 12) {
                 // France Id Regex
                 if (regexKey === "nationalIdFrance") {
                   if (testingRegex.test(element)) {
@@ -183,7 +184,8 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
                     found = true;
                   }
                 }
-              } else if (element.length >= 10 && element.length <= 14) {
+              }
+              if (element.length >= 10 && element.length <= 14) {
                 // Check for UK phone number
                 if (regexKey === "ukPhone") {
                   if (testingRegex.test(element)) {
@@ -209,7 +211,8 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
                     found = true;
                   }
                 }
-              } else if (element.length === 16) {
+              }
+              if (element.length === 16) {
                 if (regexKey === "ukDriverLicense") {
                   if (testingRegex.test(element)) {
                     localChild.push(
@@ -235,7 +238,9 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
                   }
                 }
 
-              } else if (element.length === 10) {
+              }
+              if (element.length === 10) {
+            
                 if (regexKey === "indianPanCard") {
                   if (testingRegex.test(element)) {
                     localChild.push(
@@ -260,7 +265,8 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
                     found = true;
                   }
                 }
-              } else if (element.length === 12) {
+              }
+              if (element.length === 12) {
                 if (regexKey === "indianAadhar") {
                   if (testingRegex.test(element)) {
                     localChild.push(
@@ -285,39 +291,41 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
                     found = true;
                   }
                 }
-              } 
-              else {
-                if (
-                  regexKey !== "nationalIdFrance" &&
-                  regexKey !== "indianMobile" &&
-                  regexKey !== "address" &&
-                  regexKey !== "ukAddress" &&
-                  regexKey !== "usAddress"
-                ) {
-                  if (testingRegex.test(element)) {
-                    localChild.push(
-                      new BTIssueTreeProviderItem(
-                        reason,
-                        undefined,
-                        docUri,
-                        lineIndex,
-                        level
-                      )
-                    );
-                    localParent.push(
-                      new BTIssueTreeProviderItem(
-                        element,
-                        localChild,
-                        docUri,
-                        lineIndex,
-                        severityIcon,
-                        message
-                      )
-                    );
-                    found = true;
-                  }
+              }
+
+              if (
+                regexKey !== "nationalIdFrance" &&
+                regexKey !== "indianMobile" &&
+                regexKey !== "address" &&
+                regexKey !== "ukAddress" &&
+                regexKey !== "usAddress" &&
+                regexKey !== "indianAadhar" &&
+                regexKey !== "indianPanCard"
+              ) {
+                if (testingRegex.test(element)) {
+                  localChild.push(
+                    new BTIssueTreeProviderItem(
+                      reason,
+                      undefined,
+                      docUri,
+                      lineIndex,
+                      level
+                    )
+                  );
+                  localParent.push(
+                    new BTIssueTreeProviderItem(
+                      element,
+                      localChild,
+                      docUri,
+                      lineIndex,
+                      severityIcon,
+                      message
+                    )
+                  );
+                  found = true;
                 }
               }
+
             });
           }
           if (found) {

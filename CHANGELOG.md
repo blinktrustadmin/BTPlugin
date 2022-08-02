@@ -38,3 +38,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Enhanced Pii detection
 - Indian Pii detection
+
+## [Released - v1.1.7]
+
+- Enhanced Pii detection
+- Indian Pii detection

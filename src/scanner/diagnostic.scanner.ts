@@ -103,7 +103,8 @@ export const diagnosticScanner = async (
                 found = true;
               }
             }
-          } else if (element.length === 12) {
+          }
+          if (element.length === 12) {
             // France Id Regex
             if (regexKey === "nationalIdFrance") {
               if (testingRegex.test(element)) {
@@ -118,7 +119,7 @@ export const diagnosticScanner = async (
                 found = true;
               }
             }
-          } else if (element.length >= 10 && element.length <= 14) {
+          } if (element.length >= 10 && element.length <= 14) {
             // Check for UK phone number
             if (regexKey === "ukPhone") {
               if (testingRegex.test(element)) {
@@ -133,7 +134,7 @@ export const diagnosticScanner = async (
                 found = true;
               }
             }
-          } else if (element.length === 16) {
+          } if (element.length === 16) {
             if (regexKey === "ukDriverLicense") {
               if (testingRegex.test(element)) {
                 diagnosticContent = new DiagnosticsContent(
@@ -148,14 +149,9 @@ export const diagnosticScanner = async (
               }
             }
           }
-          else {
-            if (
-              regexKey !== "nationalIdFrance" &&
-              regexKey !== "indianMobile" &&
-              regexKey !== "address" &&
-              regexKey !== "ukAddress" &&
-              regexKey !== "usAddress"
-            ) {
+
+          if (element.length === 10) {
+            if (regexKey === "indianPanCard") {
               if (testingRegex.test(element)) {
                 diagnosticContent = new DiagnosticsContent(
                   message,
@@ -169,6 +165,45 @@ export const diagnosticScanner = async (
               }
             }
           }
+
+          if (element.length === 12) {
+            if (regexKey === "indianAadhar") {
+              if (testingRegex.test(element)) {
+                diagnosticContent = new DiagnosticsContent(
+                  message,
+                  lineIndex,
+                  level,
+                  element,
+                  reason,
+                  regexKey
+                );
+                found = true;
+              }
+            }
+          }
+
+          if (
+            regexKey !== "nationalIdFrance" &&
+            regexKey !== "indianMobile" &&
+            regexKey !== "address" &&
+            regexKey !== "ukAddress" &&
+            regexKey !== "usAddress" &&
+            regexKey !== "indianAadhar" &&
+            regexKey !== "indianPanCard"
+          ) {
+            if (testingRegex.test(element)) {
+              diagnosticContent = new DiagnosticsContent(
+                message,
+                lineIndex,
+                level,
+                element,
+                reason,
+                regexKey
+              );
+              found = true;
+            }
+          }
+
         });
       }
 
