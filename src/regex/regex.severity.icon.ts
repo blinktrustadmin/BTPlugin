@@ -58,7 +58,11 @@ export const REGEX_SEVERITY_ICON: any = Object.seal({
   address: "medium",
   indianMobile: "medium",
   ukDriverLicense: "medium",
-  ukNationalInsuranceNumber: "medium"
+  ukNationalInsuranceNumber: "medium",
+  indianPanCard: "high",
+  indianAadhar: "high",
+  indianDl: "high",
+  indianPassport: "high",
 });
 
 export const REGEX_SEVERITY_ICON_KEYS = Object.keys(REGEX_SEVERITY_ICON);

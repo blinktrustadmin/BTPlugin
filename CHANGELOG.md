@@ -1,6 +1,6 @@
 # Change Log
 
-All notable changes to the "BlinkTrustAI" extension will be documented in this file.
+All notable changes to the "BlinkTrust" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
@@ -29,3 +29,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Released - v1.1.4]
 
 - Feedback section added
+
+## [Released - v1.1.5]
+
+- Enhanced Pii detection

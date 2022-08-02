@@ -24,7 +24,6 @@ export const showProgress = (
 export const errorHandler = (err: any, window: any) => {
   window.processing = true;
   showProgress("", "", "", window);
-  console.log("BlinkTrustAi err:", err);
 };
 
 export const calculateProgress = (filesScanned: number, totalFiles: number) => {

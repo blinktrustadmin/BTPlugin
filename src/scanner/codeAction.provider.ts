@@ -72,7 +72,7 @@ export class BlinkCodeActionProvider implements CodeActionProvider {
 
     if (type === "API_TOKENIZE") {
       fix = new CodeAction(
-        `Tokenization API (BlinkTrustAi)`,
+        `Tokenization API (BlinkTrust)`,
         CodeActionKind.QuickFix
       );
       let editText = null;
@@ -97,7 +97,7 @@ export class BlinkCodeActionProvider implements CodeActionProvider {
       fix.edit.insert(document.uri, newRange.start, editText);
     } else if (type === "DE_TOKENIZE_API") {
       fix = new CodeAction(
-        `Detokenize API (BlinkTrustAi)`,
+        `Detokenize API (BlinkTrust)`,
         CodeActionKind.QuickFix
       );
 

@@ -1,6 +1,6 @@
-# BlinkTrustAI for Visual Studio Code
+# BlinkTrust for Visual Studio Code
 
-BlinkTrustAI's Sencitive Data Discovery provided by <a href="https://www.blinktrustai.com">BlinkTrustAI.com</a> helps you find helps you discover, monitor & prevent data privacy & compliance issues for 50+ global data privacy regulations. Within a few seconds, the extension will provide a list of all the different types of Data identified  and with audit reports.
+BlinkTrust's Sensitive Data Discovery provided by <a href="https://www.blinktrust.com">BlinkTrust.com</a> helps you find helps you discover, monitor & prevent data privacy & compliance issues for 50+ global data privacy regulations. Within a few seconds, the extension will provide a list of all the different types of Data identified  and with audit reports.
 
 - **Automate** - We automate privacy and compliance with integrations to existing Software and IT lifecycle management tools like Jira.
 - **Integrate** - We integrate with existing Integrated development environments (Visual Studio, Eclipse, etc) to ensure data privacy & compliance is addressed in design, development, pre-deployment stage in the Software lifecycle.
@@ -17,37 +17,37 @@ BlinkTrustAI's Sencitive Data Discovery provided by <a href="https://www.blinktr
 
 ## Introduction
 
-BlinkTrustAI helps you discover, monitor & prevent data privacy & compliance issues for 50+ global data privacy regulations.
+BlinkTrust helps you discover, monitor & prevent data privacy & compliance issues for 50+ global data privacy regulations.
 
 ### Supported Data Source
-Currently supported languages for BlinkTrustAI file are CSV, TXT, JavaScript, TypeScript, Java, Python and C#, PHP, MongoDB, MsSQL, MySQL, many other. We analyze files as defined by the following list: `csv`, `txt`, `md`, `aspx`, `CS`, `ejs`, `.es`, `.es6`, `.htm`, `.html`, `.js`, `.jsx`, `.ts`, `.tsx`, `.vue`, `.py`, `.java`.
+Currently supported languages for BlinkTrust file are CSV, TXT, JavaScript, TypeScript, Java, Python and C#, PHP, MongoDB, MsSQL, MySQL, many other. We analyze files as defined by the following list: `csv`, `txt`, `md`, `aspx`, `CS`, `ejs`, `.es`, `.es6`, `.htm`, `.html`, `.js`, `.jsx`, `.ts`, `.tsx`, `.vue`, `.py`, `.java`.
 
 ## Install the extension
-You can find the [BlinkTrustAI Extension](https://marketplace.visualstudio.com/items?itemName=BlinkTrustAI.blinktrust) in the Visual Studio Code Marketplace. To install, either:
+You can find the [BlinkTrust Extension](https://marketplace.visualstudio.com/items?itemName=blinktrust.blinktrust) in the Visual Studio Code Marketplace. To install, either:
 
-- Navigate to the [BlinkTrustAI Extension on the Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=BlinkTrustAI.blinktrust)
-  and follow the instructions for the BlinkTrustAI extension. The docs from VS Code help you trigger the installation process from Visual Studio Code and guide you through the installation steps.
+- Navigate to the [BlinkTrust Extension on the Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=blinktrust.blinktrust)
+  and follow the instructions for the BlinkTrust extension. The docs from VS Code help you trigger the installation process from Visual Studio Code and guide you through the installation steps.
 
-- Browse for the extension as advised [here](https://www.blinktrustai.com/)
-  and search for BlinkTrustAI, then install (as described [here](https://marketplace.visualstudio.com/items?itemName=BlinkTrustAI.blinktrust)).
+- Browse for the extension as advised [here](https://www.blinktrust.com/)
+  and search for BlinkTrust, then install (as described [here](https://marketplace.visualstudio.com/items?itemName=blinktrust.blinktrust)).
 
-Once installed you can find a BlinkTrustAI icon in the sidebar ![extension icon](https://bhscanner.s3.amazonaws.com/icons/blinkhub.png).
+Once installed you can find a BlinkTrust icon in the sidebar ![extension icon](https://bhscanner.s3.amazonaws.com/icons/blinkhub.png).
 
-BlinkTrustAI's extension provides all the suggestions in a concise and clean view containing all information:
+BlinkTrust's extension provides all the suggestions in a concise and clean view containing all information:
 
 ![Suggestion example](https://bt-plugin-resource.s3.ap-south-1.amazonaws.com/images/home.png)
 
 ## Authentication
 To authenticate follow the steps:
 
-1. Once the extension is installed, click on the BlinkTrustAI Icon in the left navigation bar, to show the following screen:
+1. Once the extension is installed, click on the BlinkTrust Icon in the left navigation bar, to show the following screen:
    ![Authentication](https://bt-plugin-resource.s3.ap-south-1.amazonaws.com/images/auth.png)
 
 2. Click **Get Started**. The extension relies on the GitHub authentication API and it will ask you
    to authenticate you against ypur GitHub's credentials:
    ![Authentication](https://bhscanner.s3.amazonaws.com/icons/github_login.png)
 
-3. Authorize the BlinkTrustAI App **Authenticate**.
+3. Authorize the BlinkTrust App **Authenticate**.
  ![Authentication](https://bhscanner.s3.amazonaws.com/icons/auth_app_github.png)
 
 4. After successful authentication, you will see a confirmation message:

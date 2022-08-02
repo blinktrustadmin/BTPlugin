@@ -1,8 +1,8 @@
 {
   "name": "blinktrust",
-  "displayName": "BlinkTrust AI Privacy Code Plugin",
-  "description": "Find and fix privacy issues in source code. World class scanner for the PII Data from BlinkTrustAI!",
-  "version": "1.1.4",
+  "displayName": "BlinkTrust Privacy Code Plugin",
+  "description": "Find and fix privacy issues in source code. World class scanner for the PII Data from BlinkTrust!",
+  "version": "1.1.5",
   "icon": "assets/images/blinktrust_logo.png",
   "engines": {
     "vscode": "^1.69.0"
@@ -46,7 +46,7 @@
       "activitybar": [
         {
           "id": "blinktrust",
-          "title": "BlinkTrustAi",
+          "title": "BlinkTrust",
           "icon": "assets/images/blinktrust_logo.svg"
         }
       ]
@@ -55,38 +55,38 @@
       "blinktrust": [
         {
           "id": "blinktrust.welcome",
-          "name": "BlinkTrustAi",
+          "name": "BlinkTrust",
           "when": "!LOGGED_IN"
         },
         {
           "id": "blinktrust.dataPrivacy",
           "name": "Data Privacy Issues",
-          "contextualTitle": "BlinkTrustAi",
+          "contextualTitle": "BlinkTrust",
           "when": "LOGGED_IN"
         },
         {
           "id": "blinktrust.btPrivacyDataCompliance",
           "name": "BT Data Privacy Compliance",
-          "contextualTitle": "BlinkTrustAi",
+          "contextualTitle": "BlinkTrust",
           "when": "LOGGED_IN"
         },
         {
           "id": "blinktrust.blinktrustPlatform",
-          "name": "BlinkTrustAi Platform",
-          "contextualTitle": "BlinkTrustAi",
+          "name": "BlinkTrust Platform",
+          "contextualTitle": "BlinkTrust",
           "when": "LOGGED_IN"
         },
         {
           "id": "blinktrust.helpAndFeedback",
           "name": "Help & Feedback",
-          "contextualTitle": "BlinkTrustAi"
+          "contextualTitle": "BlinkTrust"
         }
       ]
     },
     "viewsWelcome": [
       {
         "view": "blinktrust.welcome",
-        "contents": "Welcome to BlinkTrustAI Discovery for Visual Studio Code. 👋\nLet's start by connecting VS Code with BlinkTrustAI:\n[Connect VS Code with BlinkTrustAI](command:blinktrust.authenticate 'Connect with BlinkTrustAI')\n👉 BlinkTrustAI's mission is to finds data Security and breach fast. Connect with BlinkTrustAI to start your first analysis!",
+        "contents": "Welcome to BlinkTrust Discovery for Visual Studio Code. 👋\nLet's start by connecting VS Code with BlinkTrust:\n[Connect VS Code with BlinkTrust](command:blinktrust.authenticate 'Connect with BlinkTrust')\n👉 BlinkTrust's mission is to finds data Security and breach fast. Connect with BlinkTrust to start your first analysis!",
         "when": "!LOGGED_IN"
       }
     ],
@@ -109,36 +109,36 @@
     "commands": [
       {
         "command": "blinktrust.openPage",
-        "category": "BlinkTrustAi",
+        "category": "BlinkTrust",
         "title": "Open Page"
       },
       {
         "command": "blinktrust.authenticate",
-        "category": "BlinkTrustAi",
+        "category": "BlinkTrust",
         "title": "Authenticate"
       },
       {
         "command": "blinktrust.refresh",
-        "category": "BlinkTrustAi",
+        "category": "BlinkTrust",
         "title": "Refresh"
       },
       {
         "command": "blinktrust.scan",
-        "category": "BlinkTrustAI",
+        "category": "BlinkTrust",
         "title": "Scan",
         "icon": "assets/images/refresh.svg",
         "shortTitle": "Scan"
       },
       {
         "command": "blinktrust.dashboard",
-        "category": "BlinkTrustAI",
+        "category": "BlinkTrust",
         "title": "Dashboard",
         "icon": "assets/images/dashboard.svg",
         "shortTitle": "Dashboard"
       }
     ],
     "configuration": {
-      "title": "BlinkTrustAi data scanner",
+      "title": "BlinkTrust data scanner",
       "properties": {
         "blinktrust.token": {
           "type": "string",

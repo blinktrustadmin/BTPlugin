@@ -50,7 +50,11 @@ export const REGEX_ICON: any = Object.seal({
   address: "home",
   indianMobile: "phone",
   ukDriverLicense: "key",
-  ukNationalInsuranceNumber: "key"
+  ukNationalInsuranceNumber: "key",
+  indianPanCard: "key",
+  indianAadhar: "key",
+  indianDl: "key",
+  indianPassport: "key",
 });
 
 export const REGEX_ICON_KEYS = Object.keys(REGEX_ICON);

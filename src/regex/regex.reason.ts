@@ -60,7 +60,11 @@ export const REGEX_REASON: any = Object.seal({
   address: "Address",
   indianMobile: "Indian mobile",
   ukDriverLicense: "Driver's license UK",
-  ukNationalInsuranceNumber: "National Insurance Number UK"
+  ukNationalInsuranceNumber: "National Insurance Number UK",
+  indianPanCard: "Indian pan card",
+  indianAadhar: "Indian aadhar card",
+  indianDl: "Indian driver license",
+  indianPassport: "Indian passport",
 });
 
 export const REGEX_REASON_KEYS = Object.keys(REGEX_REASON);

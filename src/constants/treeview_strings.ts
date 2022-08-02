@@ -2,7 +2,7 @@
 export const treeViewTitle: any = {
   dataPrivacy: "Data Privacy Issues",
   btDataPrivacyCompliance: "BT Data Privacy Compliance",
-  btPlatform: "BlinkTrustAi Platform",
+  btPlatform: "BlinkTrust Platform",
   helpAndFeedback: "Help & Feedback",
 };
 
@@ -20,9 +20,9 @@ export const accessRegulatoryAndReportsChildItems: any = {
 
 // btPlatform Tree Items
 export const btPlatformTreeItems: any = {
-  btDiscoveryEngine: "BlinkTrustAi Discovery Engine",
-  btPrivacyApis: "BlinkTrustAi Privacy API's",
-  btVault: "BlinkTrustAi Vault",
+  btDiscoveryEngine: "BlinkTrust Discovery Engine",
+  btPrivacyApis: "BlinkTrust Privacy API's",
+  btVault: "BlinkTrust Vault",
 };
 
 // btPlatform Child Items
@@ -41,14 +41,14 @@ export const btVaultChildItems: any = {
 // Help and feedback tree items
 export const helpAndFeedbackTreeItems: any = {
   faq: "FAQ - top 3 frequently asked interview questions",
-  helpBlinkTrustAi: "Help BlinkTrustAi to make a better product for you!",
+  helpBlinkTrustAi: "Help BlinkTrust to make a better product for you!",
   sendYourFeedback: "Send your feedback & suggestions or report a bug!",
   shareYourExperience: "Share your experience with us!",
 };
 
 // faq child items
 export const faqChildItems: any = {
-  installPlugin: "How to install BlinkTrustAi's extension?",
-  uninstallPlugin: "How to uninstall BlinkTrustAi's extension?",
-  howToScan: "How to scan with BlinkTrustAi's extension?",
+  installPlugin: "How to install BlinkTrust's extension?",
+  uninstallPlugin: "How to uninstall BlinkTrust's extension?",
+  howToScan: "How to scan with BlinkTrust's extension?",
 };
