@@ -7,8 +7,8 @@ export const helpTreeViewUri: any = {
 
 export const btPlatformTreeViewUri: any = {
   discoverPiiData: `https://www.blinktrust.com/integration?t=`,
-  useOurApi: `https://www.blinktrust.com/report.html`,
-  offloadSensitiveData: `https://www.blinktrust.com/btvault`,
+  useOurApi: `https://www.blinktrust.com/report.html?t=`,
+  offloadSensitiveData: `https://www.blinktrust.com/btvault?t=`,
 };
 
 export const btDataComplianceTreeViewUri: any = {

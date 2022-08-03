@@ -166,7 +166,7 @@ export const diagnosticScanner = async (
             }
           }
 
-          if (element.length === 12) {
+          if (element.length >=12 && element.length <= 14) {
             if (regexKey === "indianAadhar") {
               if (testingRegex.test(element)) {
                 diagnosticContent = new DiagnosticsContent(

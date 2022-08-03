@@ -266,7 +266,7 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
                   }
                 }
               }
-              if (element.length === 12) {
+              if (element.length >=12 && element.length <= 14) {
                 if (regexKey === "indianAadhar") {
                   if (testingRegex.test(element)) {
                     localChild.push(
