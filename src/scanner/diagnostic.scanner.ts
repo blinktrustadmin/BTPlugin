@@ -166,9 +166,10 @@ export const diagnosticScanner = async (
             }
           }
 
-          if (element.length >=12 && element.length <= 14) {
+          if (element.length >= 12 && element.length <= 15) {
+            let aReg = new RegExp(REGEX_SET[regexKey], "gm");
             if (regexKey === "indianAadhar") {
-              if (testingRegex.test(element)) {
+              if (aReg.test(element)) {
                 diagnosticContent = new DiagnosticsContent(
                   message,
                   lineIndex,

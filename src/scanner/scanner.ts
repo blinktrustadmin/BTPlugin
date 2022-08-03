@@ -240,7 +240,6 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
 
               }
               if (element.length === 10) {
-            
                 if (regexKey === "indianPanCard") {
                   if (testingRegex.test(element)) {
                     localChild.push(
@@ -266,9 +265,10 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
                   }
                 }
               }
-              if (element.length >=12 && element.length <= 14) {
+              if (element.length >=12 && element.length <= 15) {
+                let aReg = new RegExp(REGEX_SET[regexKey], "gm");
                 if (regexKey === "indianAadhar") {
-                  if (testingRegex.test(element)) {
+                  if (aReg.test(element)) {
                     localChild.push(
                       new BTIssueTreeProviderItem(
                         reason,

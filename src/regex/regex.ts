@@ -74,7 +74,7 @@ export const REGEX_SET: any = Object.seal({
   ukDriverLicense: /[A-Z0-9]{5}\d[0156]\d([0][1-9]|[12]\d|3[01])\d[A-Z0-9]{3}[A-Z]{2}/,
   ukNationalInsuranceNumber: /^([ACEHJLMOPRSW-Yacehjlmoprsw-y][A-CEGHJ-NPRSTW-Za-ceghj-nprstw-z]|[Bb][A-CEHJ-NPRSTW-Za-cehj-nprstw-z]|[Gg][ACEGHJ-NPRSTW-Zaceghj-nprstw-z]|[Kk][A-CEGHJ-MPRSTW-Za-ceghj-mprstw-z]|[Nn][A-CEGHJLMNPRSW-Za-ceghjlmnprsw-z]|[Tt][A-CEGHJ-MPRSTW-Za-ceghj-mprstw-z]|[Zz][A-CEGHJ-NPRSTW-Ya-ceghj-nprstw-y])[0-9]{6}[A-Da-d ]?$/,
   indianPanCard: /[A-Z]{5}[0-9]{4}[A-Z]{1}/,
-  indianAadhar: /^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$/,
+  indianAadhar: /^[2-9]\d{3}[\s-]?\d{4}[\s-]?\d{4}$/,
   indianDl: /^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$/,
   indianPassport: /^[A-PR-WYa-pr-wy][1-9]\\d\\s?\\d{4}[1-9]$/,
 });
