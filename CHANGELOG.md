@@ -43,3 +43,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Enhanced Pii detection
 - Indian Pii detection
+
+## [Released - v1.1.8]
+
+- Enhanced Pii detection
+- Indian Pii detection
+- Changes in Regex conditions
