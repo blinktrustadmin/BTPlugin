@@ -58,7 +58,7 @@ export const REGEX_REASON: any = Object.seal({
   californiaAddress: "California address",
   ukAddress: "UK address",
   address: "Address",
-  indianMobile: "Indian mobile",
+  indianPhoneNumber: "Indian phone number",
   ukDriverLicense: "Driver's license UK",
   ukNationalInsuranceNumber: "National Insurance Number UK",
   indianPanCard: "Indian pan card",

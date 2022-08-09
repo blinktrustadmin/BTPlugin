@@ -48,7 +48,7 @@ export const REGEX_ICON: any = Object.seal({
   californiaAddress: "home",
   ukAddress: "home",
   address: "home",
-  indianMobile: "phone",
+  indianPhoneNumber: "phone",
   ukDriverLicense: "key",
   ukNationalInsuranceNumber: "key",
   indianPanCard: "key",

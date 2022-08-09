@@ -57,7 +57,7 @@ export const REGEX_MESSAGE: any = Object.seal({
   californiaAddress: "Contains california address",
   ukAddress: "Contains UK address",
   address: "Contains address",
-  indianMobile: "Contains indian mobile",
+  indianPhoneNumber: "Contains indian phone number",
   ukDriverLicense: "Contains Driver's license UK",
   ukNationalInsuranceNumber: "Contains UK National Insurance Number",
   indianPanCard: "Contains indian pan card",

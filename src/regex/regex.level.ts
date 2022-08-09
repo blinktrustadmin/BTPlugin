@@ -57,7 +57,7 @@ export const REGEX_LEVEL: any = Object.seal({
   californiaAddress: "warning",
   ukAddress: "warning",
   address: "warning",
-  indianMobile: "warning",
+  indianPhoneNumber: "warning",
   ukDriverLicense: "warning",
   ukNationalInsuranceNumber: "warning",
   indianPanCard: "warning",

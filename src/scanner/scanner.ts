@@ -133,7 +133,7 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
 
               // Check for Indian mobile number
               if (element.length >= 10 && element.length <= 14) {
-                if (regexKey === "indianMobile") {
+                if (regexKey === "indianPhoneNumber") {
                   if (testingRegex.test(element)) {
                     localChild.push(
                       new BTIssueTreeProviderItem(
@@ -295,7 +295,7 @@ export const fileScanner = async (): Promise<ResponseInterfaceScanner> => {
 
               if (
                 regexKey !== "nationalIdFrance" &&
-                regexKey !== "indianMobile" &&
+                regexKey !== "indianPhoneNumber" &&
                 regexKey !== "address" &&
                 regexKey !== "ukAddress" &&
                 regexKey !== "usAddress" &&

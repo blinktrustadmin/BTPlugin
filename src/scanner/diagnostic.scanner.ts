@@ -87,10 +87,10 @@ export const diagnosticScanner = async (
           var reason = REGEX_REASON[regexKey];
           var level = REGEX_LEVEL[regexKey];
           var severityIcon = REGEX_SEVERITY_ICON[regexKey];
-
+          
           // Check for Indian mobile number
           if (element.length >= 10 && element.length <= 14) {
-            if (regexKey === "indianMobile") {
+            if (regexKey === "indianPhoneNumber") {
               if (testingRegex.test(element)) {
                 diagnosticContent = new DiagnosticsContent(
                   message,
@@ -119,7 +119,8 @@ export const diagnosticScanner = async (
                 found = true;
               }
             }
-          } if (element.length >= 10 && element.length <= 14) {
+          } 
+          if (element.length >= 10 && element.length <= 14) {
             // Check for UK phone number
             if (regexKey === "ukPhone") {
               if (testingRegex.test(element)) {
@@ -185,7 +186,7 @@ export const diagnosticScanner = async (
 
           if (
             regexKey !== "nationalIdFrance" &&
-            regexKey !== "indianMobile" &&
+            regexKey !== "indianPhoneNumber" &&
             regexKey !== "address" &&
             regexKey !== "ukAddress" &&
             regexKey !== "usAddress" &&
